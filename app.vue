@@ -2,11 +2,9 @@
     <v-app>
         <v-container>
             <v-row>
-                <v-spacer />
-                <v-col cols="auto">
-                    <h1>Nothing here yet</h1>
-                </v-col>
-                <v-spacer />
+                <v-col> <server-stat ip="play.mikchan.net" /> </v-col>
+                <v-col> <server-stat ip="mods.mikchan.net" /> </v-col>
+                <v-col> <server-stat ip="creative.mikchan.net" /> </v-col>
             </v-row>
         </v-container>
     </v-app>
