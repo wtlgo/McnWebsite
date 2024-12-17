@@ -1,12 +1,10 @@
 export const useApiGroupCover = () => {
-    const { suspense, ...other } = useQuery({
+    const q = useQuery({
         queryKey: queryKeys.apiGroupCover(),
         queryFn: async ({ signal }) => $fetch("/api/group-cover", { signal }),
     });
 
-    onServerPrefetch(async () => {
-        await suspense();
-    });
+    onServerPrefetch(q.suspense);
 
-    return { suspense, ...other };
+    return q;
 };

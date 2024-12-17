@@ -10,7 +10,7 @@ const mcSrvStatSchema = z.object({
 });
 
 export const useMcsrvstatApi = (ip: TValue<string>) => {
-    const { suspense, ...other } = useQuery({
+    const q = useQuery({
         queryKey: queryKeys.mcSrvStatApi(ip),
         queryFn: async ({ signal }) =>
             $fetch(`https://api.mcsrvstat.us/3/${toValue(ip)}`, {
@@ -18,9 +18,7 @@ export const useMcsrvstatApi = (ip: TValue<string>) => {
             }).then((res) => mcSrvStatSchema.parseAsync(res)),
     });
 
-    onServerPrefetch(async () => {
-        await suspense();
-    });
+    onServerPrefetch(q.suspense);
 
-    return { suspense, ...other };
+    return q;
 };
