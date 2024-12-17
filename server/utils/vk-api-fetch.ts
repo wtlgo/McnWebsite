@@ -1,4 +1,4 @@
-import { VkApi } from "~/shared/vk-api";
+import { VkApi } from "~/shared/vk";
 
 export class VkApiFetch extends VkApi {
     constructor(accessToken: string) {

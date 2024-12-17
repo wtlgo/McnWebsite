@@ -1,4 +1,4 @@
-import { VkApi } from "~/shared/vk-api";
+import { VkApi } from "~/shared/vk";
 
 let callbackIterator = 0;
 
