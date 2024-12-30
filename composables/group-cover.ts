@@ -1,5 +1,7 @@
 import cover from "~/assets/fallback_cover.jpg";
 
+const fallbackCover = { url: cover, width: 1920, height: 768 };
+
 export const useGroupCover = () => {
     const { data } = useApiGroupCover();
     const { width: displayWidth, platform } = useDisplay();
@@ -31,7 +33,8 @@ export const useGroupCover = () => {
                     height,
                 }))
                 .reduce((prev, cur) => (cur.value < prev.value ? cur : prev)) ??
-            maxImage.value ?? { url: cover, width: 1920, height: 768 }
+            maxImage.value ??
+            fallbackCover
     );
 
     return bestImage;
