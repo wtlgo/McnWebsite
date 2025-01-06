@@ -7,15 +7,20 @@ export const useGroupCover = () => {
     const { width: displayWidth, platform } = useDisplay();
 
     const maxImage = computed(() =>
-        data.value?.reduce((prev, cur) => (prev.width > cur.width ? prev : cur))
+        data.value?.reduce(
+            (prev, cur) => (prev.width > cur.width ? prev : cur),
+            fallbackCover
+        )
     );
 
-    const availableImages = computed(
-        () =>
+    const availableImages = computed(() => {
+        const res =
             data.value?.filter(
                 ({ width }) => platform.value.ssr || width >= displayWidth.value
-            ) ?? []
-    );
+            ) ?? [];
+
+        return res.length ? res : [fallbackCover];
+    });
 
     const bestImage = computed<{
         url: string;
