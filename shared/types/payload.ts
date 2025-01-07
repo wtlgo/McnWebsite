@@ -7,6 +7,7 @@ export const payloadSchema = z.object({
     photo: z.string().optional(),
     accessToken: z.string(),
     isAdmin: z.boolean(),
+    isMember: z.boolean(),
 });
 
 export type TPayload = z.infer<typeof payloadSchema>;

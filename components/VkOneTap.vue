@@ -6,7 +6,15 @@
 </style>
 
 <template>
-    <div v-if="!auth.valid" class="one-tap-container" ref="el" />
+    <v-card v-if="!auth.valid" title="Вход в систему">
+        <template #text>
+            <v-container fluid>
+                <mid-row>
+                    <div class="one-tap-container" ref="el" />
+                </mid-row>
+            </v-container>
+        </template>
+    </v-card>
 </template>
 
 <script lang="ts" setup>

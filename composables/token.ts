@@ -3,5 +3,6 @@ export const useToken = () => {
         default: () => null,
         watch: true,
     });
+
     return token;
 };

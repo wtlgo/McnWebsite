@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { payloadSchema } from "~/server/auth/payload";
+import { payloadSchema } from "~/shared/types/payload";
 import { jwtDecode } from "jwt-decode";
 
 const falseVal = { valid: false } as const;

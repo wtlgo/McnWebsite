@@ -1,7 +1,7 @@
 import { jwtVerify, SignJWT } from "jose";
 import { z } from "zod";
 import { alg, audience, issuer, secret } from "~/server/auth/config";
-import { payloadSchema as jwtSchema } from "~/server/auth/payload";
+import { payloadSchema as jwtSchema } from "~/shared/types/payload";
 
 export const createJWT = async (
     payload: z.infer<typeof jwtSchema>,

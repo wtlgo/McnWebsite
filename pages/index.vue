@@ -1,6 +1,7 @@
 <template>
     <v-container>
         <top-cover />
+
         <v-row>
             <v-col cols="12" md="12" lg="4">
                 <server-stat ip="play.mikchan.net" />
@@ -13,16 +14,8 @@
             </v-col>
         </v-row>
 
-        <v-row v-if="auth.valid">
-            <v-spacer />
-            <v-col cols="auto"> <auth-info /> </v-col>
-            <v-spacer />
-        </v-row>
-        <v-row v-else>
-            <v-spacer />
-            <v-col cols="auto"> <vk-one-tap /> </v-col>
-            <v-spacer />
-        </v-row>
+        <mid-row v-if="auth.valid"> <auth-info /> </mid-row>
+        <mid-row v-else> <vk-one-tap /> </mid-row>
     </v-container>
 </template>
 

@@ -1,4 +1,4 @@
-import { TPayload } from "~/server/auth/payload";
+import { TPayload } from "~/shared/types/payload";
 
 export const createPayload = async (accessToken: string, vkId: number) => {
     const vkApi = new VkApiFetch(accessToken);
@@ -8,21 +8,15 @@ export const createPayload = async (accessToken: string, vkId: number) => {
 
     if (!user || user.id != vkId) {
         throw createError({
-            statusCode: 400,
-            message:
-                "Пользователь не состоит в группе https://vk.com/mikchanno",
+            statusCode: 404,
+            message: "Пользователь не найден",
         });
     }
 
     const groups = await vkApi.groupsGetById({ groupIds: [197680365] });
     const group = groups.find((g) => g.id == 197680365);
-    if (!group || !group.is_member) {
-        throw createError({
-            statusCode: 400,
-            message:
-                "Пользователь не состоит в группе https://vk.com/mikchanno",
-        });
-    }
+    const isMember = !!group && group.is_member;
+    const isAdmin = !!group && group.is_admin;
 
     const payload: TPayload = {
         id: user.id,
@@ -30,7 +24,8 @@ export const createPayload = async (accessToken: string, vkId: number) => {
         surname: user.last_name,
         photo: user.photo_400,
         accessToken,
-        isAdmin: group.is_admin,
+        isAdmin,
+        isMember,
     };
 
     return payload;
