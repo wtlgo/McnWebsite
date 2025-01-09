@@ -1,7 +1,7 @@
 <template>
     <v-app>
-        <cabinet-app-bar v-model="drawer" />
-        <cabinet-navigation v-model="drawer" />
+        <cabinet-app-bar v-model="drawerActive" />
+        <cabinet-navigation v-model="drawerActive" />
         <v-main>
             <slot />
         </v-main>
@@ -16,4 +16,9 @@ useHead({
 useMemberGuard();
 
 const drawer = ref(false);
+const { mobile } = useDisplay();
+const drawerActive = computed({
+    get: () => !mobile.value || drawer.value,
+    set: (val) => (drawer.value = val),
+});
 </script>
