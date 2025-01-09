@@ -1,5 +1,7 @@
 <template>
     <v-app>
+        <cabinet-app-bar v-model="drawer" />
+        <cabinet-navigation v-model="drawer" />
         <v-main>
             <slot />
         </v-main>
@@ -12,4 +14,6 @@ useHead({
 });
 
 useMemberGuard();
+
+const drawer = ref(false);
 </script>
