@@ -1,4 +1,10 @@
 import { VkApi } from "~/shared/vk";
+import Bottleneck from "bottleneck";
+
+const limiter = new Bottleneck({
+    minTime: 333,
+    maxConcurrent: 1,
+});
 
 let callbackIterator = 0;
 
@@ -10,7 +16,7 @@ export class VkApiJsonP extends VkApi {
     request(
         url: string,
         params: Record<string, any>,
-        _signal?: AbortSignal
+        signal?: AbortSignal
     ): Promise<unknown> {
         const queryParams = new URLSearchParams();
         for (const param in params) {
@@ -23,20 +29,28 @@ export class VkApiJsonP extends VkApi {
 
         const fullUrl = `${url}?${queryParams}`;
 
-        return new Promise((resolve) => {
-            const script = document.createElement("script");
-            script.src = fullUrl;
+        return limiter.schedule(
+            () =>
+                new Promise((resolve) => {
+                    const script = document.createElement("script");
+                    script.src = fullUrl;
 
-            // @ts-ignore
-            window[callbackName] = (res: unknown) => {
-                // @ts-ignore
-                delete window[callbackName];
+                    if (signal) {
+                        signal.onabort = () => script.remove();
+                    }
+                    // @ts-ignore
+                    window[callbackName] = (res: unknown) => {
+                        // @ts-ignore
+                        delete window[callbackName];
 
-                script.remove();
-                resolve(res);
-            };
+                        script.remove();
+                        resolve(res);
+                    };
 
-            document.getElementsByTagName("head")[0].appendChild(script);
-        });
+                    document
+                        .getElementsByTagName("head")[0]
+                        .appendChild(script);
+                })
+        );
     }
 }

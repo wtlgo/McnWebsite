@@ -1,4 +1,6 @@
 export const useVkApi = () => {
-    const runtimeConfig = useRuntimeConfig();
-    return computed(() => new VkApiJsonP(runtimeConfig.vkApiServiceKey));
+    const { auth } = useAuthData();
+    return computed(
+        () => new VkApiJsonP(auth.value.valid ? auth.value.accessToken : "")
+    );
 };
