@@ -4,6 +4,7 @@ export const queryKeys = {
     apiBase: () => ["api", "client"],
     apiGroupCover: () => [...queryKeys.apiBase(), "group-cover"],
     apiPlayerList: () => [...queryKeys.apiBase(), "player-list"],
+    apiProfiles: () => [...queryKeys.apiBase(), "profiles"],
 
     apiVk: () => ["api", "vk"],
     apiVkUserGet: (id: unknown) => [...queryKeys.apiVk(), "user", "get", id],

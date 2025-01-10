@@ -31,12 +31,15 @@ export class VkApiJsonP extends VkApi {
 
         return limiter.schedule(
             () =>
-                new Promise((resolve) => {
+                new Promise((resolve, reject) => {
                     const script = document.createElement("script");
                     script.src = fullUrl;
 
                     if (signal) {
-                        signal.onabort = () => script.remove();
+                        signal.onabort = () => {
+                            script.remove();
+                            reject();
+                        };
                     }
                     // @ts-ignore
                     window[callbackName] = (res: unknown) => {

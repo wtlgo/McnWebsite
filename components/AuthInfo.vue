@@ -13,21 +13,20 @@
             <v-container fluid>
                 <v-row>
                     <v-col cols="auto" v-if="!auth.isMember">
-                        <v-btn color="primary" >
-                            Правила
-                        </v-btn>
-                    </v-col><v-col cols="auto" v-if="!auth.isMember">
-                        <v-btn color="primary" >
+                        <v-btn color="primary"> Правила </v-btn>
+                    </v-col>
+                    <v-col cols="auto" v-if="!auth.isMember">
+                        <v-btn color="primary">
                             Подать заявку на вступление
                         </v-btn>
                     </v-col>
                     <v-col cols="auto" v-if="auth.isMember">
-                        <v-btn color="primary" @click="onCabinet">
+                        <v-btn color="primary" to="/cabinet">
                             Личный Кабинет
                         </v-btn>
                     </v-col>
                     <v-col cols="auto" v-if="auth.isAdmin">
-                        <v-btn color="primary" @click="onAdmin">
+                        <v-btn color="primary" to="/admin">
                             Админ Панель
                         </v-btn>
                     </v-col>
@@ -39,7 +38,6 @@
 
 <script lang="ts" setup>
 const { auth, token } = useAuthData();
-const router = useRouter();
 
 const subtitle = computed(() => {
     if (!auth.value.valid) return "Неизвестный";
@@ -49,6 +47,4 @@ const subtitle = computed(() => {
 });
 
 const onExit = () => (token.value = null);
-const onCabinet = () => router.push("cabinet");
-const onAdmin = () => router.push("admin");
 </script>

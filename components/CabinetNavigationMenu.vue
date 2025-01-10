@@ -4,25 +4,15 @@
             v-for="(item, idx) in items"
             :key="idx"
             :title="item.title"
-            :active="isActive(item.route)"
             :prepend-icon="item.icon"
-            @click="page = item.route"
+            :to="item.route"
         />
     </v-list>
 </template>
 
 <script lang="ts" setup>
 import type { RouteLocationRaw } from "vue-router";
-import { mdiViewDashboard, mdiNaturePeople } from "@mdi/js";
-
-const route = useRoute();
-const router = useRouter();
-const page = computed({
-    get: () => route.path as RouteLocationRaw,
-    set(val: RouteLocationRaw) {
-        router.push(val);
-    },
-});
+import { mdiViewDashboard, mdiNaturePeople, mdiFaceManProfile } from "@mdi/js";
 
 const items: { title: string; route: RouteLocationRaw; icon: string }[] = [
     { title: "Дешборд", route: "/cabinet/dashboard", icon: mdiViewDashboard },
@@ -31,8 +21,10 @@ const items: { title: string; route: RouteLocationRaw; icon: string }[] = [
         route: "/cabinet/player-list",
         icon: mdiNaturePeople,
     },
+    {
+        title: "Мои профили",
+        route: "/cabinet/profiles",
+        icon: mdiFaceManProfile,
+    },
 ];
-
-const isActive = (loc: RouteLocationRaw) =>
-    route.path.startsWith(loc.toString());
 </script>

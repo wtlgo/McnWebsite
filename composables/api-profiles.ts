@@ -1,9 +1,9 @@
-export const useApiPlayerList = () => {
+export const useApiProfiles = () => {
     const { token, auth } = useAuthData();
     const { data, ...other } = useQuery({
-        queryKey: queryKeys.apiPlayerList(),
+        queryKey: queryKeys.apiProfiles(),
         queryFn: async ({ signal }) =>
-            $fetch("/api/player-list", {
+            $fetch("/api/profiles", {
                 signal,
                 query: { accessToken: token.value },
             }),
@@ -13,11 +13,6 @@ export const useApiPlayerList = () => {
     onServerPrefetch(other.suspense);
 
     const safeData = computed(() => data.value ?? []);
-
-    const userIds = computed(() => [
-        ...new Set(safeData.value.map((u) => u.vk)),
-    ]);
-    usePreloadVkUsers(userIds);
 
     return { data: safeData, ...other };
 };

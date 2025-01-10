@@ -12,11 +12,13 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 403 });
     }
 
-    return (await getVkUsers()).map(
-        ({ name, vkId, floodgate }): PlayerListData => ({
-            name,
-            vk: vkId,
-            bedrock: !!floodgate,
-        })
-    );
+    return (await getVkUsers())
+        .map(
+            ({ name, vkId, floodgate }): PlayerListData => ({
+                name,
+                vk: vkId,
+                bedrock: !!floodgate,
+            })
+        )
+        .reverse();
 });

@@ -1,4 +1,5 @@
 import { isNull } from "drizzle-orm";
+import { z } from "zod";
 
 export const getVkUsers = async () => {
     const db = useMysqlDb();
@@ -32,3 +33,5 @@ export const getVkUsers = async () => {
             )
         );
 };
+
+export type VkUserItem = Awaited<ReturnType<typeof getVkUsers>>[0];
