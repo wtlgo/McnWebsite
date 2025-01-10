@@ -1,8 +1,8 @@
 <template>
     <v-list-item
         v-if="auth.valid"
-        title="Личный кабинет"
-        :subtitle="`Добро пожаловать, ${auth.name}!`"
+        :title="auth.name"
+        :subtitle="role"
         :prepend-avatar="auth.photo"
     >
         <template #append>
@@ -20,4 +20,10 @@
 import { mdiLogoutVariant } from "@mdi/js";
 const { auth, token } = useAuthData();
 const onLogout = () => (token.value = null);
+const role = computed(() => {
+    if (!auth.value.valid) return "Кто?";
+    if (auth.value.isAdmin) return "Администратор";
+    if (auth.value.isMember) return "Игрок";
+    return "Гость";
+});
 </script>

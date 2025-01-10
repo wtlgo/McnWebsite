@@ -4,7 +4,7 @@
             v-for="(item, idx) in items"
             :key="idx"
             :title="item.title"
-            :active="item.route == page"
+            :active="isActive(item.route)"
             :prepend-icon="item.icon"
             @click="page = item.route"
         />
@@ -25,11 +25,14 @@ const page = computed({
 });
 
 const items: { title: string; route: RouteLocationRaw; icon: string }[] = [
-    { title: "Дешборд", route: "/cabinet", icon: mdiViewDashboard },
+    { title: "Дешборд", route: "/cabinet/dashboard", icon: mdiViewDashboard },
     {
         title: "Список игроков",
         route: "/cabinet/player-list",
         icon: mdiNaturePeople,
     },
 ];
+
+const isActive = (loc: RouteLocationRaw) =>
+    route.path.startsWith(loc.toString());
 </script>
