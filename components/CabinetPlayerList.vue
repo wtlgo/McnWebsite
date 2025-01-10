@@ -16,14 +16,17 @@
 import type { PlayerListData } from "~/shared/types/player-list-data";
 
 const search = ref("");
+const searchDebounced = refDebounced(search, 500);
 const { data } = defineProps<{ data: PlayerListData[] }>();
 const filteredData = computed(() =>
     data
         .map((d, id) => ({ ...d, id }))
         .filter(
             (d) =>
-                d.name.includes(search.value.trim()) ||
-                d.vk.toString().startsWith(search.value.trim())
+                d.name
+                    .toLowerCase()
+                    .includes(searchDebounced.value.trim().toLowerCase()) ||
+                d.vk.toString().startsWith(searchDebounced.value.trim())
         )
 );
 </script>
