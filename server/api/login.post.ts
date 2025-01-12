@@ -7,16 +7,19 @@ const loginSchema = z.object({
     uuid: z.coerce.string().min(1),
 });
 
-export default defineEventHandler(async (event) => {
-    const { token: silentToken, uuid: silentUuid } = await readValidatedZodBody(
-        event,
-        loginSchema
-    );
+export default defineEventHandler<{ body: z.infer<typeof loginSchema> }>(
+    async (event) => {
+        const { token: silentToken, uuid: silentUuid } =
+            await readValidatedZodBody(event, loginSchema);
 
-    const { access_token, user_id, expires_in } =
-        await ServiceVkAPI.authExchangeSilentAuthToken(silentToken, silentUuid);
+        const { access_token, user_id, expires_in } =
+            await ServiceVkAPI.authExchangeSilentAuthToken(
+                silentToken,
+                silentUuid
+            );
 
-    const payload = await createPayload(access_token, user_id);
+        const payload = await createPayload(access_token, user_id);
 
-    return createJWT(payload, expires_in);
-});
+        return createJWT(payload, expires_in);
+    }
+);

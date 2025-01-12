@@ -11,8 +11,8 @@
                     variant="text"
                     density="compact"
                 >
-                    личных сообщениях паблика </v-btn
-                >.
+                    личных сообщениях группы
+                </v-btn>
             </template>
         </v-alert>
     </mid-row>
@@ -21,6 +21,35 @@
             <cabinet-profiles-item :profile="profile" />
         </v-col>
     </v-row>
+
+    <mid-row v-if="profiles.length > 0">
+        <v-alert type="info" variant="outlined">
+            <template #text>
+                <p>Каждому игроку дозволено иметь:</p>
+                <ol class="px-7">
+                    <li>
+                        Один лицензионный или пиратский Java Edition аккаунт
+                    </li>
+                    <li>Один Bedrock Edition аккаунт</li>
+                    <li>
+                        Второй лицензионный Java Edition аккаунт, если первый
+                        аккаунт, который был добавлен, был пиратским, а новый
+                        лицензионный аккаунт с таким же именем получить
+                        невозможно
+                    </li>
+                </ol>
+                <p>
+                    Чтобы добавить ещё один профиль в список, или исправить
+                    некорректные данные (например, если у тебя лицензионный
+                    аккаунт, а он отображается как пиратский), необходимо
+                    обратиться в
+                    <a href="https://vk.com/im?sel=-197680365"
+                        >личные сообщения группы</a
+                    >.
+                </p>
+            </template>
+        </v-alert>
+    </mid-row>
 </template>
 
 <script lang="ts" setup>

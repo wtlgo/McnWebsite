@@ -23,9 +23,7 @@
         </template>
 
         <template #actions>
-            <v-btn :disabled="isPremium" :append-icon="mdiFormTextboxPassword">
-                Обновить пароль
-            </v-btn>
+            <update-password-button :profile="profile" />
         </template>
     </v-card>
 </template>
@@ -38,7 +36,6 @@ import steve from "~/assets/steve.jpg";
 import { mdiLicense, mdiPirate, mdiFormTextboxPassword } from "@mdi/js";
 
 const { profile } = defineProps<{ profile: VkUserItem }>();
-const icon = computed(() => (profile.floodgate ? bedrock : java));
 
 const isPremium = computed(() => !!profile.premium || !!profile.floodgate);
 const isBedrock = computed(() => !!profile.floodgate);
