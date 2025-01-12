@@ -8,7 +8,8 @@
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
-        "db:mysql:generate": "drizzle-kit pull --config drizzle-mysql.config.ts"
+        "db:mysql:generate": "drizzle-kit pull --config drizzle-mysql.config.ts",
+        "deploy": "pnpm i --frozen-lockfile && nuxt build && pm2 reload ecosystem.config.cjs"
     },
     "dependencies": {
         "@hebilicious/vue-query-nuxt": "^0.3.0",
