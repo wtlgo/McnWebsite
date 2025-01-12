@@ -1,5 +1,5 @@
 <template>
-    <div>admin</div>
+    <div>Пацаны, сори, но тут пока пусто. Потерпите немного</div>
 </template>
 
 <script lang="ts" setup>

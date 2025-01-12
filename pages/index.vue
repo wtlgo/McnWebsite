@@ -16,6 +16,15 @@
 
         <mid-row v-if="auth.valid"> <auth-info /> </mid-row>
         <mid-row v-else> <vk-one-tap /> </mid-row>
+
+        <mid-row>
+            <v-alert
+                variant="outlined"
+                type="warning"
+                title="Under Construction"
+                text="Сайт в процессе активной разработки. Сейчас доступен только базовый функционал."
+            />
+        </mid-row>
     </v-container>
 </template>
 

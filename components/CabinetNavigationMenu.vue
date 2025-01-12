@@ -17,14 +17,14 @@ import { mdiViewDashboard, mdiNaturePeople, mdiFaceManProfile } from "@mdi/js";
 const items: { title: string; route: RouteLocationRaw; icon: string }[] = [
     { title: "Дешборд", route: "/cabinet/dashboard", icon: mdiViewDashboard },
     {
-        title: "Список игроков",
-        route: "/cabinet/player-list",
-        icon: mdiNaturePeople,
-    },
-    {
         title: "Мои профили",
         route: "/cabinet/profiles",
         icon: mdiFaceManProfile,
+    },
+    {
+        title: "Список игроков",
+        route: "/cabinet/player-list",
+        icon: mdiNaturePeople,
     },
 ];
 </script>
