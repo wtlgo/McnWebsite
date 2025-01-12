@@ -1,15 +1,8 @@
-import { useSessionStorage } from "@vueuse/core";
-import type { z } from "zod";
-import { userResponseSchema } from "~/shared/vk/types";
-
 export const useVkApiUserGet = (
     id: TValue<number>,
     enabled: TValue<boolean> = true
 ) => {
-    const cache = useSessionStorage<z.infer<typeof userResponseSchema>>(
-        "vk-api-user-get-cache",
-        []
-    );
+    const { find, add } = useCacheVkUsers();
 
     const vkApi = useVkApi();
 
@@ -17,14 +10,14 @@ export const useVkApiUserGet = (
         queryKey: queryKeys.apiVkUserGet(id),
         queryFn: async ({ signal }) => {
             const vid = toValue(id);
-            const user = cache.value.find((u) => u.id === vid);
+            const user = find(vid);
             if (user) return user;
 
             const additionalUsers = await vkApi.value.userGet(
                 { userIds: [vid] },
                 signal
             );
-            cache.value = [...cache.value, ...additionalUsers];
+            add(additionalUsers);
             return additionalUsers.find((u) => u.id === vid);
         },
         enabled: () => toValue(enabled) && import.meta.client,

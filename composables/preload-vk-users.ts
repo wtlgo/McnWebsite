@@ -1,11 +1,5 @@
-import type { z } from "zod";
-import type { userResponseSchema } from "~/shared/vk/types";
-
 export const usePreloadVkUsers = (ids: TValue<number[]>) => {
-    const cache = useSessionStorage<z.infer<typeof userResponseSchema>>(
-        "vk-api-user-get-cache",
-        []
-    );
+    const { cache, add } = useCacheVkUsers();
     const vkApi = useVkApi();
     const queryClient = useQueryClient();
 
@@ -23,7 +17,7 @@ export const usePreloadVkUsers = (ids: TValue<number[]>) => {
         vkApi.value
             .userGet({ userIds: unknownUsers.value }, abortController.signal)
             .then((users) => {
-                cache.value = [...cache.value, ...users];
+                add(users);
                 for (const user of users) {
                     queryClient.setQueryData(
                         queryKeys.apiVkUserGet(user.id),
