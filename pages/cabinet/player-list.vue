@@ -16,7 +16,15 @@
             </v-alert>
         </mid-row>
 
-        <cabinet-player-list v-else :data="data" />
+        <client-only v-else>
+            <cabinet-player-list :data="data" />
+
+            <template #fallback>
+                <mid-row>
+                    <v-progress-circular color="primary" indeterminate />
+                </mid-row>
+            </template>
+        </client-only>
     </v-container>
 </template>
 

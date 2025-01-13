@@ -6,7 +6,7 @@
     <one-row> Найдено: {{ filteredData.length }} </one-row>
 
     <v-row>
-        <cabinet-player-list-item
+        <lazy-cabinet-player-list-item
             v-for="item in filteredData"
             :key="item.id"
             :item="item"
