@@ -1,5 +1,5 @@
 <template>
-    <v-card :title="profile.name" :prepend-avatar="steve">
+    <v-card :title="profile.name" :prepend-avatar="avatar">
         <template #text>
             <div class="d-flex ga-2">
                 <v-chip
@@ -84,4 +84,7 @@ const { profile } = defineProps<{ profile: VkUserItem }>();
 
 const isPremium = computed(() => !!profile.premium || !!profile.floodgate);
 const isBedrock = computed(() => !!profile.floodgate);
+
+const headUrl = useSkinHead(() => profile.name, 64);
+const avatar = computed(() => headUrl.value ?? steve);
 </script>

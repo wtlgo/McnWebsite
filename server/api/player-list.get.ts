@@ -6,7 +6,7 @@ const querySchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
-    const { accessToken, ...other } = getZodQuery(event, querySchema);
+    const { accessToken } = getZodQuery(event, querySchema);
     const { isMember } = await validateJWT(accessToken);
     if (!isMember) {
         throw createError({ statusCode: 403 });
