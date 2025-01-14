@@ -3,7 +3,7 @@
         v-if="auth.valid"
         :prepend-avatar="auth.photo"
         :title="`Добро пожаловать, ${auth.name}!`"
-        :subtitle="subtitle"
+        :subtitle="auth.gameTitle"
     >
         <template #actions>
             <v-btn color="red" @click="onExit">Выйти</v-btn>
@@ -38,13 +38,6 @@
 
 <script lang="ts" setup>
 const { auth, token } = useAuthData();
-
-const subtitle = computed(() => {
-    if (!auth.value.valid) return "Неизвестный";
-    if (auth.value.isAdmin) return "Администратор";
-    if (auth.value.isMember) return "Игрок";
-    return "Гость";
-});
 
 const onExit = () => (token.value = null);
 </script>

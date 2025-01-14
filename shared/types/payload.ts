@@ -8,6 +8,7 @@ export const payloadSchema = z.object({
     accessToken: z.string(),
     isAdmin: z.boolean(),
     isMember: z.boolean(),
+    gameTitle: z.string(),
 });
 
 export type TPayload = z.infer<typeof payloadSchema>;
