@@ -26,8 +26,9 @@ export const findInGameTitle = async (vkId: number): Promise<string | null> => {
         )
         .where(eq(mcnpVkVkUsers.vkId, vkId));
 
-    const uuids = users.map((u) => u.uuid);
+    if (users.length === 0) return null;
 
+    const uuids = users.map((u) => u.uuid);
     const perms = await db
         .select({
             group: luckpermsUserPermissions.permission,
@@ -42,7 +43,6 @@ export const findInGameTitle = async (vkId: number): Promise<string | null> => {
         );
 
     const cleanPerms = new Set(perms.map((p) => p.group.slice(6)));
-    if (cleanPerms.size === 0) return null;
 
     if (cleanPerms.has("makar"))
         return "верховный ван - сын неба - жёлтый император - хуйанди";
