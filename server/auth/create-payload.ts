@@ -17,7 +17,13 @@ export const createPayload = async (accessToken: string, vkId: number) => {
     const group = groups.find((g) => g.id == 197680365);
     const isMember = !!group && group.is_member;
     const isAdmin = !!group && group.is_admin;
-    const gameTitle = isMember ? await findInGameTitle(vkId) : "Гость";
+
+    const inGameTitle = await findInGameTitle(vkId);
+    const gameTitle = isMember
+        ? inGameTitle ?? "Игрок"
+        : inGameTitle
+        ? "Бывший игрок"
+        : "Гость";
 
     const payload: TPayload = {
         id: user.id,

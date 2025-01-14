@@ -1,6 +1,6 @@
 import { inArray, like } from "drizzle-orm";
 
-export const findInGameTitle = async (vkId: number): Promise<string> => {
+export const findInGameTitle = async (vkId: number): Promise<string | null> => {
     const db = useMysqlDb();
     const {
         mcnpVkBukkitPlayers,
@@ -42,6 +42,7 @@ export const findInGameTitle = async (vkId: number): Promise<string> => {
         );
 
     const cleanPerms = new Set(perms.map((p) => p.group.slice(6)));
+    if (cleanPerms.size === 0) return null;
 
     if (cleanPerms.has("makar"))
         return "верховный ван - сын неба - жёлтый император - хуйанди";
