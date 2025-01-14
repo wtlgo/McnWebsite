@@ -25,6 +25,8 @@ export const createPayload = async (accessToken: string, vkId: number) => {
         ? "Бывший игрок"
         : "Гость";
 
+    const isExMember = !!inGameTitle && !isMember;
+
     const payload: TPayload = {
         id: user.id,
         name: user.first_name,
@@ -33,6 +35,7 @@ export const createPayload = async (accessToken: string, vkId: number) => {
         accessToken,
         isAdmin,
         isMember,
+        isExMember,
         gameTitle,
     };
 

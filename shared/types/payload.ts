@@ -8,6 +8,7 @@ export const payloadSchema = z.object({
     accessToken: z.string(),
     isAdmin: z.boolean(),
     isMember: z.boolean(),
+    isExMember: z.boolean(),
     gameTitle: z.string(),
 });
 
