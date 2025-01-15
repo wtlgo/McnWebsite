@@ -14,11 +14,14 @@
         <v-list-item
             v-for="(item, idx) in additionalItems"
             :key="idx"
-            :title="item.title"
             :prepend-icon="item.icon"
             :to="item.route"
             :href="item.href"
-        />
+        >
+            <template #title>
+                {{ item.title }} <v-icon :icon="mdiLink" size="x-small" />
+            </template>
+        </v-list-item>
     </v-list>
 </template>
 
@@ -26,18 +29,19 @@
 import type { RouteLocationRaw } from "vue-router";
 import {
     mdiViewDashboard,
-    mdiNaturePeople,
-    mdiFaceManProfile,
+    mdiListBox,
+    mdiAccount,
     mdiMap,
     mdiVote,
-    mdiGroup,
+    mdiLink,
 } from "@mdi/js";
+import { siVk } from "simple-icons";
 
 interface ItemT {
     title: string;
     route?: RouteLocationRaw;
     href?: string;
-    icon: string;
+    icon?: string;
 }
 
 const items: ItemT[] = [
@@ -45,17 +49,21 @@ const items: ItemT[] = [
     {
         title: "Мои профили",
         route: "/cabinet/profiles",
-        icon: mdiFaceManProfile,
+        icon: mdiAccount,
     },
     {
         title: "Список игроков",
         route: "/cabinet/player-list",
-        icon: mdiNaturePeople,
+        icon: mdiListBox,
     },
 ];
 
 const additionalItems: ItemT[] = [
-    { title: "Группа ВК", href: "https://vk.com/mikchanno", icon: mdiGroup },
+    {
+        title: "Группа ВК",
+        href: "https://vk.com/mikchanno",
+        icon: siVk.path,
+    },
     {
         title: "Карта креатив-сервера",
         href: "https://map.creative.mikchan.net",

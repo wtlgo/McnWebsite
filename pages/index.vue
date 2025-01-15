@@ -19,6 +19,7 @@
 
         <mid-row>
             <v-alert
+                :icon="mdiTrafficCone"
                 variant="outlined"
                 type="warning"
                 title="Under Construction"
@@ -29,5 +30,7 @@
 </template>
 
 <script lang="ts" setup>
+import { mdiTrafficCone } from "@mdi/js";
+
 const { auth } = useAuthData();
 </script>
