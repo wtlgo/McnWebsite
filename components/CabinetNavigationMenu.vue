@@ -27,14 +27,7 @@
 
 <script lang="ts" setup>
 import type { RouteLocationRaw } from "vue-router";
-import {
-    mdiViewDashboard,
-    mdiListBox,
-    mdiAccount,
-    mdiMap,
-    mdiVote,
-    mdiLink,
-} from "@mdi/js";
+import { mdiListBox, mdiAccount, mdiMap, mdiVote, mdiLink } from "@mdi/js";
 import { siVk } from "simple-icons";
 
 interface ItemT {
@@ -45,7 +38,6 @@ interface ItemT {
 }
 
 const items: ItemT[] = [
-    { title: "Дешборд", route: "/cabinet/dashboard", icon: mdiViewDashboard },
     {
         title: "Мои профили",
         route: "/cabinet/profiles",

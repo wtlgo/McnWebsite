@@ -7,7 +7,7 @@
     >
         <template #append>
             <v-btn
-                :icon="mdiLogoutVariant"
+                :icon="mdiLogout"
                 variant="text"
                 color="red"
                 @click="onLogout"
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { mdiLogoutVariant } from "@mdi/js";
+import { mdiLogout } from "@mdi/js";
 const { auth, token } = useAuthData();
 const onLogout = () => (token.value = null);
 </script>

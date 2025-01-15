@@ -1,5 +1,5 @@
 <script lang="ts" setup>
 definePageMeta({
-    redirect: "/cabinet/dashboard",
+    redirect: "/cabinet/profiles",
 });
 </script>
