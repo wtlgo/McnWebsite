@@ -26,6 +26,9 @@ importers:
       '@vueuse/nuxt':
         specifier: 12.4.0
         version: 12.4.0(magicast@0.3.5)(nuxt@3.15.1(@parcel/watcher@2.5.0)(@types/node@22.10.2)(db0@0.2.1(drizzle-orm@0.38.3(mysql2@3.12.0))(mysql2@3.12.0))(drizzle-orm@0.38.3(mysql2@3.12.0))(ioredis@5.4.1)(magicast@0.3.5)(mysql2@3.12.0)(rollup@4.28.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.2)(vite@6.0.7(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))(yaml@2.6.1))(rollup@4.28.1)(typescript@5.7.2)
+      '@vueuse/router':
+        specifier: ^12.4.0
+        version: 12.4.0(typescript@5.7.2)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.2)))
       bottleneck:
         specifier: ^2.19.5
         version: 2.19.5
@@ -1494,6 +1497,11 @@ packages:
     resolution: {integrity: sha512-3T4YTIxbScSfYPF6+EodL04b54CtaKwaPg+BQcod1BDa3j0afxbDlhqWv7uobacLR5xYWy+hITnmgT+TJQsdWA==}
     peerDependencies:
       nuxt: ^3.0.0
+
+  '@vueuse/router@12.4.0':
+    resolution: {integrity: sha512-NXa7kuIeC/BR4B1FPfqOA9LDhbTNBiF5KSprnJCZ3Mw4/ZLzyq7GDIlgJsjcqEtRmgQjJFVRQdAX0yWvIs1ygQ==}
+    peerDependencies:
+      vue-router: '>=4.0.0-rc.1'
 
   '@vueuse/shared@12.4.0':
     resolution: {integrity: sha512-9yLgbHVIF12OSCojnjTIoZL1+UA10+O4E1aD6Hpfo/DKVm5o3SZIwz6CupqGy3+IcKI8d6Jnl26EQj/YucnW0Q==}
@@ -5320,6 +5328,14 @@ snapshots:
       - magicast
       - rollup
       - supports-color
+      - typescript
+
+  '@vueuse/router@12.4.0(typescript@5.7.2)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.2)))':
+    dependencies:
+      '@vueuse/shared': 12.4.0(typescript@5.7.2)
+      vue: 3.5.13(typescript@5.7.2)
+      vue-router: 4.5.0(vue@3.5.13(typescript@5.7.2))
+    transitivePeerDependencies:
       - typescript
 
   '@vueuse/shared@12.4.0(typescript@5.7.2)':

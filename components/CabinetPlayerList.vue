@@ -16,8 +16,9 @@
 
 <script lang="ts" setup>
 import type { PlayerListData } from "~/shared/types/player-list-data";
+import { useRouteQuery } from "@vueuse/router";
 
-const search = ref("");
+const search = useRouteQuery("q", "");
 const searchDebounced = refDebounced(search, 500);
 
 const { data } = defineProps<{ data: PlayerListData[] }>();
