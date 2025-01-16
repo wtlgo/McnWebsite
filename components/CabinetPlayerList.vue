@@ -29,7 +29,7 @@ const searchedIds = computed(() =>
         .filter((u) =>
             `${u.first_name} ${u.last_name}`
                 .toLowerCase()
-                .includes(searchDebounced.value.toLowerCase())
+                .includes(searchDebounced.value.trim().toLowerCase())
         )
         .map((u) => u.id)
 );
