@@ -2,21 +2,13 @@
     <v-card :title="`Скин ${profile.name}`">
         <template #text>
             <v-container fluid>
-                <mid-row>
-                    <v-img
+                <mid-row v-if="skin">
+                    <skin-view
+                        :skin="skin"
                         :height="maxHeight"
-                        :width="maxHeight / 2"
-                        :src="skinPart"
+                        :width="maxHeight"
                     />
                 </mid-row>
-                <one-row>
-                    <v-slider
-                        v-model.number="sliderPos"
-                        min="-2"
-                        max="2"
-                        step="1"
-                    />
-                </one-row>
             </v-container>
         </template>
 
@@ -34,30 +26,9 @@ const emit = defineEmits<{ (e: "close"): void }>();
 const onClose = () => emit("close");
 
 const dims = useDisplay();
-const pSizes = computed(() => [
-    250,
-    dims.height.value / 2,
-    dims.width.value * 0.8,
-]);
-const maxHeight = computed(() => Math.min(...pSizes.value));
-const maxRender = computed(() => Math.max(...pSizes.value));
+const maxHeight = computed(() =>
+    Math.min(250, dims.height.value / 2, dims.width.value * 0.8)
+);
 
-const skin = useSkinFullBody(() => profile.name, maxRender);
-
-const sliderPos = ref(0);
-const skinPart = computed(() => {
-    if (!skin.value) return;
-    switch (sliderPos.value) {
-        case -2:
-            return skin.value.back;
-        case -1:
-            return skin.value.left;
-        case 0:
-            return skin.value.front;
-        case 1:
-            return skin.value.right;
-        case 2:
-            return skin.value.back;
-    }
-});
+const skin = useApiSkin(() => profile.name);
 </script>
