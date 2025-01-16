@@ -69,6 +69,7 @@
 
         <template #actions>
             <update-password-button :profile="profile" />
+            <skin-button :profile="profile" />
         </template>
     </v-card>
 </template>

@@ -17,4 +17,10 @@ export const queryKeys = {
         url,
         size,
     ],
+    localFullBodyRender: (url: unknown, size: unknown) => [
+        ...queryKeys.local(),
+        "skin-full-body-render",
+        url,
+        size,
+    ],
 } as const;

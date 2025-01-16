@@ -18,7 +18,7 @@ export const extractFaceFromSkin = async (
         await doneLoading;
 
         const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
         if (!ctx) return null;
 
         canvas.width = size;
