@@ -8,7 +8,8 @@ const skinDataSchema = z.object({
     }),
 });
 
-const parseSkinData = (data: string) => {
+const parseSkinData = (data?: string) => {
+    if (!data) return null;
     try {
         const decoded = Buffer.from(data, "base64").toString("utf-8");
         const skinDataRaw = JSON.parse(decoded);
@@ -45,7 +46,7 @@ const getSkinUrlComplex = async (name: string) => {
                 .from(srUrlSkins)
                 .where(eq(srUrlSkins.url, player.skinIdentifier ?? "-"))
                 .then((v) => v[0]);
-            return parseSkinData(skin.value);
+            return parseSkinData(skin?.value);
         }
 
         case "PLAYER": {
@@ -54,7 +55,7 @@ const getSkinUrlComplex = async (name: string) => {
                 .from(srPlayerSkins)
                 .where(eq(srPlayerSkins.uuid, player.skinIdentifier ?? uuid))
                 .then((v) => v[0]);
-            return parseSkinData(skin.value);
+            return parseSkinData(skin?.value);
         }
 
         case null: {
@@ -63,7 +64,7 @@ const getSkinUrlComplex = async (name: string) => {
                 .from(srPlayerSkins)
                 .where(eq(srPlayerSkins.uuid, player.uuid))
                 .then((v) => v[0]);
-            return parseSkinData(skin.value);
+            return parseSkinData(skin?.value);
         }
 
         default: {
@@ -82,6 +83,6 @@ export const getSkinUrl = async (name: string) => {
         .select()
         .from(srPlayerSkins)
         .where(eq(srPlayerSkins.lastKnownName, name))
-        .then((v) => v[0])
-        .then((v) => (v ? parseSkinData(v.value) : null));
+        .then((v) => v[0]?.value)
+        .then((v) => (v ? parseSkinData(v) : null));
 };

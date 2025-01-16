@@ -1,5 +1,5 @@
 <template>
-    <v-card :title="`Скин ${profile.name}`">
+    <v-card :title="`Скин ${name}`">
         <template #text>
             <v-container fluid>
                 <mid-row v-if="skin">
@@ -19,8 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { VkUserItem } from "~/shared/types/vk-user-item";
-const { profile } = defineProps<{ profile: VkUserItem }>();
+const { name } = defineProps<{ name: string }>();
 const emit = defineEmits<{ (e: "close"): void }>();
 
 const onClose = () => emit("close");
@@ -30,5 +29,5 @@ const maxHeight = computed(() =>
     Math.min(250, dims.height.value / 2, dims.width.value * 0.8)
 );
 
-const skin = useApiSkin(() => profile.name);
+const skin = useApiSkin(() => name);
 </script>
