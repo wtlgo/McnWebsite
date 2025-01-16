@@ -9,10 +9,11 @@
         >
             <template #append>
                 <v-btn
-                    :icon="mdiLink"
-                    variant="text"
-                    density="compact"
+                    :icon="siVk.path"
                     :href="`https://vk.com/id${item.vk}`"
+                    variant="plain"
+                    :color="`#${siVk.hex}`"
+                    density="comfortable"
                 />
             </template>
         </v-card>
@@ -24,7 +25,7 @@ import { useElementVisibility } from "@vueuse/core";
 import type { PlayerListData } from "~/shared/types/player-list-data";
 import bedrock from "~/assets/bedrock.png";
 import java from "~/assets/java.png";
-import { mdiLink } from "@mdi/js";
+import { siVk } from "simple-icons";
 
 const target = ref<HTMLElement | null>(null);
 const targetVisible = useElementVisibility(target);
