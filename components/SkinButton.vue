@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="500" persistent>
+    <v-dialog max-width="500" :persistent="editable">
         <template #activator="{ props }">
             <slot name="activator" :props="props">
                 <v-btn v-bind="props" :append-icon="mdiHumanHandsdown">
