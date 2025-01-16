@@ -48,7 +48,7 @@ export const findInGameTitle = async (vkId: number): Promise<string | null> => {
         return "верховный ван - сын неба - жёлтый император - хуйанди";
     if (cleanPerms.has("op")) return "Администратор";
     if (cleanPerms.has("moderator")) return "Модератор";
-    if (cleanPerms.has("editor")) return "Редатор";
+    if (cleanPerms.has("editor")) return "Редактор";
     if (cleanPerms.has("olds")) return "Игрок-олд";
     return "Игрок";
 };
