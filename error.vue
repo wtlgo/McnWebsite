@@ -1,21 +1,19 @@
 <template>
     <NuxtLayout name="center">
-        <v-card
-            prepend-icon="$error"
-            color="error"
-            variant="text"
-            :title="error.statusCode.toString()"
+        <v-empty-state
+            headline="О нет!"
+            :title="`Ошибка ${error.statusCode}`"
             :text="error.message"
-        >
-            <template #actions>
-                <v-btn @click="onMain">На главную</v-btn>
-            </template>
-        </v-card>
+            :icon="mdiEmoticonCry"
+            action-text="На главную"
+            @click:action="onMain"
+        />
     </NuxtLayout>
 </template>
 
 <script setup lang="ts">
 import type { NuxtError } from "#app";
+import { mdiEmoticonCry } from "@mdi/js";
 
 const { error } = defineProps<{ error: NuxtError }>();
 
