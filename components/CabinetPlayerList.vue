@@ -5,13 +5,13 @@
 
     <one-row> Найдено: {{ filteredData.length }} </one-row>
 
-    <v-row>
-        <lazy-cabinet-player-list-item
-            v-for="item in filteredData"
-            :key="item.id"
-            :item="item"
-        />
-    </v-row>
+    <one-row>
+        <v-virtual-scroll :items="filteredData">
+            <template #default="{ item }">
+                <cabinet-player-list-item :item="item" />
+            </template>
+        </v-virtual-scroll>
+    </one-row>
 </template>
 
 <script lang="ts" setup>
