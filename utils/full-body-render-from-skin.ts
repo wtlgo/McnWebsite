@@ -26,7 +26,7 @@ const renderFront = (
     // Right Leg Layer 2 - Front
     ctx.drawImage(img, 4, 36, 4, 12, 4 * s, 20 * s, 4 * s, 12 * s);
     // Left Leg Layer 2 - Front
-    ctx.drawImage(img, 20, 36, 4, 12, 8 * s, 20 * s, 4 * s, 12 * s);
+    ctx.drawImage(img, 4, 52, 4, 12, 8 * s, 20 * s, 4 * s, 12 * s);
     // Right Arm Layer 2 - Front
     ctx.drawImage(img, 44, 36, 4, 12, 0 * s, 8 * s, 4 * s, 12 * s);
     // Left Arm Layer 2 - Front
@@ -63,7 +63,7 @@ const renderBack = (
     // Right Leg Layer 2 - Back
     ctx.drawImage(img, 12, 36, 4, 12, 4 * s, 20 * s, 4 * s, 12 * s);
     // Left Leg Layer 2 - Back
-    ctx.drawImage(img, 28, 36, 4, 12, 8 * s, 20 * s, 4 * s, 12 * s);
+    ctx.drawImage(img, 12, 52, 4, 12, 8 * s, 20 * s, 4 * s, 12 * s);
     // Right Arm Layer 2 - Back
     ctx.drawImage(img, 52, 36, 4, 12, 0 * s, 8 * s, 4 * s, 12 * s);
     // Left Arm Layer 2 - Back
