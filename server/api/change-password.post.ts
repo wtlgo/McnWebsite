@@ -7,12 +7,15 @@ import { OkResponse } from "~/shared/types/ok-response";
 export default defineEventHandler<{
     body: ChangePasswordRequest;
 }>(async (event): Promise<OkResponse> => {
-    const { accessToken, name, password1, password2 } =
-        await readValidatedZodBody(event, changePasswordRequestSchema);
-    const { isMember, id } = await validateJWT(accessToken);
+    const { isMember, id } = await validateJWT(getAccessToken(event));
     if (!isMember) {
         throw createError({ statusCode: 403, message: "Нет доступа" });
     }
+
+    const { name, password1, password2 } = await readValidatedZodBody(
+        event,
+        changePasswordRequestSchema
+    );
 
     const users = await getVkUsers();
     const thisUser = users.find(

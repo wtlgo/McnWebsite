@@ -22,6 +22,7 @@
         "bottleneck": "^2.19.5",
         "dotenv": "^16.4.7",
         "drizzle-orm": "^0.38.3",
+        "inbatches": "^0.0.10",
         "jose": "^5.9.6",
         "jwt-decode": "^4.0.0",
         "mysql2": "^3.12.0",

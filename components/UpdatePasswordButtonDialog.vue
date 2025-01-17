@@ -65,7 +65,6 @@ const { changePassword } = useApiChangePassword();
 
 const onClose = () => emit("close");
 const onChangePassword = () => {
-    if (!token.value) return;
     if (loading.value) return;
     if (disabled.value) return;
 
@@ -74,7 +73,6 @@ const onChangePassword = () => {
 
     changePassword(
         {
-            accessToken: token.value,
             name: profile.name,
             password1: password1.value,
             password2: password2.value,

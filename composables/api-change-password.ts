@@ -7,6 +7,9 @@ export const useApiChangePassword = () => {
             mutationFn: async (body: ChangePasswordRequest) =>
                 $fetch("/api/change-password", {
                     method: "post",
+                    headers: {
+                        ...toBearerHeader(token),
+                    },
                     body,
                 }),
         });

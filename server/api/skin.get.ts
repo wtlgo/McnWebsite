@@ -1,16 +1,16 @@
 import { z } from "zod";
 
 const querySchema = z.object({
-    accessToken: z.string().min(1),
     name: z.string().min(1),
 });
 
 export default defineEventHandler(async (event) => {
-    const { accessToken, name } = getZodQuery(event, querySchema);
-    const { isMember } = await validateJWT(accessToken);
+    const { isMember } = await validateJWT(getAccessToken(event));
     if (!isMember) {
-        throw createError({ statusCode: 403 });
+        throw createError({ statusCode: 403, message: "Нет доступа" });
     }
+
+    const { name } = getZodQuery(event, querySchema);
 
     return { url: await getSkinUrl(name) };
 });

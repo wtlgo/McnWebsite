@@ -21,5 +21,6 @@ export default defineNuxtConfig({
     runtimeConfig: {
         vkApiServiceKey: process.env["VK_API_SERVICE_KEY"],
         mysqlConnectionString: process.env["DATABASE_URL"],
+        mineskinKey: process.env["MINESKIN_KEY"],
     },
 });

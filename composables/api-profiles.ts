@@ -5,7 +5,9 @@ export const useApiProfiles = () => {
         queryFn: async ({ signal }) =>
             $fetch("/api/profiles", {
                 signal,
-                query: { accessToken: token.value },
+                headers: {
+                    ...toBearerHeader(token),
+                },
             }),
         enabled: () => !!token.value && auth.value.valid && auth.value.isMember,
     });

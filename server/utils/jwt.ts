@@ -15,7 +15,8 @@ export const createJWT = async (
         .setExpirationTime(new Date(Date.now() + expiresIn * 1000))
         .sign(secret);
 
-const validateJWTInner = async (token: string) => {
+const validateJWTInner = async (token?: string | null) => {
+    if (!token) return null;
     try {
         const { payload } = await jwtVerify(token, secret, {
             issuer,
@@ -29,7 +30,7 @@ const validateJWTInner = async (token: string) => {
     }
 };
 
-export const validateJWT = async (token: string) => {
+export const validateJWT = async (token?: string | null) => {
     const res = await validateJWTInner(token);
     if (res === null) {
         throw createError({

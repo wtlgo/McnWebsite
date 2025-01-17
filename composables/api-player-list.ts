@@ -5,7 +5,9 @@ export const useApiPlayerList = () => {
         queryFn: async ({ signal }) =>
             $fetch("/api/player-list", {
                 signal,
-                query: { accessToken: token.value },
+                headers: {
+                    ...toBearerHeader(token),
+                },
             }),
         enabled: () => !!token.value && auth.value.valid && auth.value.isMember,
     });

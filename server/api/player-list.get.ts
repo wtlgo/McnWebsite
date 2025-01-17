@@ -1,15 +1,9 @@
-import { z } from "zod";
 import { PlayerListData } from "~/shared/types/player-list-data";
 
-const querySchema = z.object({
-    accessToken: z.string().min(1),
-});
-
 export default defineEventHandler(async (event) => {
-    const { accessToken } = getZodQuery(event, querySchema);
-    const { isMember } = await validateJWT(accessToken);
+    const { isMember } = await validateJWT(getAccessToken(event));
     if (!isMember) {
-        throw createError({ statusCode: 403 });
+        throw createError({ statusCode: 403, message: "Нет доступа" });
     }
 
     return (await getVkUsers())

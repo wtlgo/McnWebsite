@@ -8,7 +8,7 @@
     <one-row>
         <v-virtual-scroll :items="filteredData">
             <template #default="{ item }">
-                <cabinet-player-list-item :item="item" />
+                <lazy-cabinet-player-list-item :item="item" />
             </template>
         </v-virtual-scroll>
     </one-row>

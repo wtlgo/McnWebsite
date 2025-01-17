@@ -38,6 +38,9 @@ importers:
       drizzle-orm:
         specifier: ^0.38.3
         version: 0.38.3(mysql2@3.12.0)
+      inbatches:
+        specifier: ^0.0.10
+        version: 0.0.10
       jose:
         specifier: ^5.9.6
         version: 5.9.6
@@ -2395,6 +2398,9 @@ packages:
 
   impound@0.2.0:
     resolution: {integrity: sha512-gXgeSyp9Hf7qG2/PLKmywHXyQf2xFrw+mJGpoj9DsAB9L7/MIKn+DeEx98UryWXdmbv8wUUPdcQof6qXnZoCGg==}
+
+  inbatches@0.0.10:
+    resolution: {integrity: sha512-hdHvl5OJqfsW11PlqnlGobiivdXm7CYoL4D293zZUUAfR02ELAGt3cf1w93CIRsTHWnuLby4h+m+n/KsNtGuoA==}
 
   index-to-position@0.1.2:
     resolution: {integrity: sha512-MWDKS3AS1bGCHLBA2VLImJz42f7bJh8wQsTGCzI3j519/CASStoDONUBVz2I/VID0MpiX3SGSnbOD2xUalbE5g==}
@@ -6270,6 +6276,8 @@ snapshots:
       unplugin: 1.16.0
     transitivePeerDependencies:
       - rollup
+
+  inbatches@0.0.10: {}
 
   index-to-position@0.1.2: {}
 

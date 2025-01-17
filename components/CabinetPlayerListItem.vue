@@ -44,7 +44,7 @@ const target = ref<HTMLElement | null>(null);
 const targetVisible = useElementVisibility(target);
 
 const { item } = defineProps<{ item: PlayerListData }>();
-const headUrl = useSkinHead(() => item.name);
+const headUrl = useSkinHead(() => item.name, 32, targetVisible);
 const icon = computed(() => headUrl.value ?? (item.bedrock ? bedrock : java));
 const vkData = useVkApiUserGet(() => item.vk, targetVisible);
 const fullName = computed(() =>

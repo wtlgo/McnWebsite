@@ -1,8 +1,9 @@
 export const useSkinHead = (
     name: TValue<string>,
-    size: TValue<number> = 32
+    size: TValue<number> = 32,
+    enabled: TValue<boolean> = true
 ) => {
-    const url = useApiSkin(name);
+    const url = useApiSkin(name, enabled);
     const safeUrl = computed(() => url.value?.replace("http://", "https://"));
 
     const { data } = useQuery({
