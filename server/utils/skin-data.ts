@@ -23,8 +23,6 @@ const parseSkinData = (data?: string) => {
 };
 
 const getSkinUrlComplex = async (names: string[]) => {
-    console.log("Fetching skins for:", names.join(", "));
-
     const db = useMysqlDb();
     const { mcnpVkBukkitPlayers, srPlayers, srUrlSkins, srPlayerSkins } =
         mysqlTables;
