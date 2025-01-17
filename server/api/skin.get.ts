@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const { name } = getZodQuery(event, querySchema);
+    const names = name.split(",");
 
-    return { url: await getSkinUrl(name) };
+    return Promise.all(names.map(getSkinUrl));
 });

@@ -1,18 +1,42 @@
+import { Batcher } from "inbatches";
+
+class SkinBatcher extends Batcher<string, string | null> {
+    public _token: string | null = null;
+    public constructor() {
+        super();
+    }
+
+    async run(names: string[]) {
+        if (this._token === null) {
+            return names.map(() => null);
+        }
+
+        return $fetch("/api/skin", {
+            query: { name: names.join(",") },
+            headers: {
+                ...toBearerHeader(this._token),
+            },
+        });
+    }
+}
+
+const batcher = new SkinBatcher();
+
 export const useApiSkin = (
     name: TValue<string>,
     enabled: TValue<boolean> = true
 ) => {
     const { token, auth } = useAuthData();
+
+    watchEffect(() => {
+        batcher._token = token.value;
+    });
+
     const { data } = useQuery({
         queryKey: queryKeys.apiSkin(name),
-        queryFn: async ({ signal }) =>
-            $fetch("/api/skin", {
-                signal,
-                query: { name: toValue(name) },
-                headers: {
-                    ...toBearerHeader(token),
-                },
-            }).then((v) => v.url),
+        queryFn: async () => {
+            return batcher.enqueue(toValue(name));
+        },
         enabled: () =>
             !!token.value &&
             auth.value.valid &&
