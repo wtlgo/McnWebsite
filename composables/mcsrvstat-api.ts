@@ -7,6 +7,7 @@ const mcSrvStatSchema = z.object({
         max: z.coerce.number(),
     }),
     icon: z.coerce.string(),
+    version: z.coerce.string(),
 });
 
 export const useMcsrvstatApi = (ip: TValue<string>) => {
