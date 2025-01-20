@@ -7,7 +7,7 @@
 
         <template v-slot:subtitle>
             Игроков: {{ data?.players.online ?? 0 }} из
-            {{ data?.players.max ?? 0 }}
+            {{ data?.players.max ?? 0 }} | Версия: {{ data?.version ?? "-" }}
         </template>
 
         <template v-slot:text>
