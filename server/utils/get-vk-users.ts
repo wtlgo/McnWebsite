@@ -31,7 +31,8 @@ export const getVkUsers = async () => {
                     eq(mcnpVkBukkitPlayers.name, premium.name)
                 )
             )
-        );
+        )
+        .orderBy(mcnpVkVkUsers.id);
 };
 
 export type VkUserItem = Awaited<ReturnType<typeof getVkUsers>>[0];
