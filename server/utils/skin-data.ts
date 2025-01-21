@@ -1,6 +1,7 @@
 import { inArray } from "drizzle-orm";
 import { Batcher } from "inbatches";
 import { z } from "zod";
+import { SimpleAsyncCacheMap } from "~/shared/utils/simple-async-cahce-map";
 
 const skinDataSchema = z.object({
     textures: z.object({
@@ -191,5 +192,9 @@ class SkinBatcher extends Batcher<string, string | null> {
     }
 }
 const batcher = new SkinBatcher();
+const cache = new SimpleAsyncCacheMap(30, (name: string) =>
+    batcher.enqueue(name)
+);
 
-export const getSkinUrl = async (name: string) => batcher.enqueue(name);
+export const getSkinUrl = async (name: string) => cache.get(name);
+export const invalidateSkinUrl = async (name: string) => cache.invalidate(name);

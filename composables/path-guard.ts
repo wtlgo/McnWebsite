@@ -4,8 +4,9 @@ export const usePathGuard = (
     isValid: TValue<boolean>,
     path: RouteLocationRaw
 ) => {
+    const router = useRouter();
     watchEffect(() => {
         if (toValue(isValid)) return;
-        throw createError({ statusCode: 401, statusMessage: 'Нет доступа' });
+        router.push(path);
     });
 };

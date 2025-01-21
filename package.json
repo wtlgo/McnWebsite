@@ -19,6 +19,7 @@
         "@vueuse/core": "^12.4.0",
         "@vueuse/nuxt": "12.4.0",
         "@vueuse/router": "^12.4.0",
+        "async-mutex": "^0.5.0",
         "bottleneck": "^2.19.5",
         "dotenv": "^16.4.7",
         "drizzle-orm": "^0.38.3",
