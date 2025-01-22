@@ -5,13 +5,15 @@
 
     <one-row> Найдено: {{ filteredData.length }} </one-row>
 
-    <one-row>
-        <v-virtual-scroll :items="filteredData">
-            <template #default="{ item }">
-                <lazy-cabinet-player-list-item :item="item" />
-            </template>
-        </v-virtual-scroll>
-    </one-row>
+    <v-row>
+        <lazy-cabinet-player-list-item
+            v-for="item in elementsToDisplay"
+            :key="item.id"
+            :item="item"
+        />
+    </v-row>
+
+    <div ref="list" />
 </template>
 
 <script lang="ts" setup>
@@ -45,5 +47,28 @@ const filteredData = computed(() =>
                     .toLowerCase()
                     .includes(searchDebounced.value.trim().toLowerCase())
         )
+);
+
+const ELEMENTS_STEP = 24;
+const elementsVisible = ref(ELEMENTS_STEP);
+const elementsToDisplay = computed(() =>
+    filteredData.value.slice(0, elementsVisible.value)
+);
+
+watch(searchedIds, () => {
+    elementsVisible.value = ELEMENTS_STEP;
+});
+
+const list = ref<HtmlElement | null>(null);
+useInfiniteScroll(
+    list,
+    () => {
+        elementsVisible.value += ELEMENTS_STEP;
+        console.log(elementsVisible.value);
+    },
+    {
+        distance: 10,
+        canLoadMore: () => elementsVisible.value < filteredData.value.length,
+    }
 );
 </script>

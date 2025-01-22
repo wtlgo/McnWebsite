@@ -1,6 +1,7 @@
 import { inArray } from "drizzle-orm";
-import { Batcher } from "inbatches";
+//import { Batcher } from "inbatches";
 import { z } from "zod";
+import { AsyncBatchProcessor } from "~/shared/utils/async-batch-processor";
 import { SimpleAsyncCacheMap } from "~/shared/utils/simple-async-cahce-map";
 
 const skinDataSchema = z.object({
@@ -182,7 +183,7 @@ const getSkinUrlComplex = async (names: string[]) => {
     return names.map((name) => (totalResult[name] ?? null) as string | null);
 };
 
-class SkinBatcher extends Batcher<string, string | null> {
+class SkinBatcher extends AsyncBatchProcessor<string, string | null> {
     public constructor() {
         super();
     }
@@ -192,7 +193,7 @@ class SkinBatcher extends Batcher<string, string | null> {
     }
 }
 const batcher = new SkinBatcher();
-const cache = new SimpleAsyncCacheMap(30, (name: string) =>
+const cache = new SimpleAsyncCacheMap(60 * 60, (name: string) =>
     batcher.enqueue(name)
 );
 

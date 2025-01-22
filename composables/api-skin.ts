@@ -1,6 +1,6 @@
-import { Batcher } from "inbatches";
+import { AsyncBatchProcessor } from "~/shared/utils/async-batch-processor";
 
-class SkinBatcher extends Batcher<string, string | null> {
+class SkinBatcher extends AsyncBatchProcessor<string, string | null> {
     public _token: string | null = null;
     public constructor() {
         super();

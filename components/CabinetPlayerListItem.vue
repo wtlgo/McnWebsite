@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="auto">
+    <v-col lg="4" md="6" cols="12">
         <v-card
             :title="item.name"
             :prepend-avatar="icon"

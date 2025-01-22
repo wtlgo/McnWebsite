@@ -17,7 +17,7 @@
         </v-alert>
     </mid-row>
     <v-row v-else>
-        <v-col cols="auto" v-for="(profile, idx) in profiles" :key="idx">
+        <v-col md="6" cols="12" v-for="(profile, idx) in profiles" :key="idx">
             <cabinet-profiles-item :profile="profile" />
         </v-col>
     </v-row>
