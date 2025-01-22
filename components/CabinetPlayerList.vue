@@ -13,7 +13,9 @@
         />
     </v-row>
 
-    <div ref="list" />
+    <mid-row ref="list">
+        <v-progress-circular v-if="canLoadMore" color="primary" indeterminate />
+    </mid-row>
 </template>
 
 <script lang="ts" setup>
@@ -49,18 +51,17 @@ const filteredData = computed(() =>
         )
 );
 
-const ELEMENTS_STEP = 24;
+const ELEMENTS_STEP = 12;
 const elementsVisible = ref(ELEMENTS_STEP);
 const elementsToDisplay = computed(() =>
     filteredData.value.slice(0, elementsVisible.value)
 );
-
-watch(searchedIds, () => {
-    elementsVisible.value = ELEMENTS_STEP;
-});
+const canLoadMore = computed(
+    () => elementsVisible.value < filteredData.value.length
+);
 
 const list = ref<HtmlElement | null>(null);
-useInfiniteScroll(
+const { reset } = useInfiniteScroll(
     list,
     () => {
         elementsVisible.value += ELEMENTS_STEP;
@@ -68,7 +69,12 @@ useInfiniteScroll(
     },
     {
         distance: 10,
-        canLoadMore: () => elementsVisible.value < filteredData.value.length,
+        canLoadMore: () => canLoadMore.value,
     }
 );
+
+watch(searchedIds, () => {
+    elementsVisible.value = ELEMENTS_STEP;
+    reset();
+});
 </script>
