@@ -1,5 +1,5 @@
 <template>
-    <v-col lg="4" md="6" cols="12">
+    <v-col cols="auto">
         <v-card
             :title="item.name"
             :prepend-avatar="icon"
@@ -8,7 +8,7 @@
             ref="target"
         >
             <template #append>
-                <skin-button v-if="!!headUrl" :name="item.name">
+                <skin-button :name="item.name">
                     <template #activator="{ props }">
                         <v-btn
                             v-bind="props"
@@ -16,6 +16,7 @@
                             variant="plain"
                             color="green"
                             density="comfortable"
+                            :disabled="!headUrl"
                         />
                     </template>
                 </skin-button>

@@ -11,11 +11,16 @@
             :key="item.id"
             :item="item"
         />
-    </v-row>
 
-    <mid-row ref="list">
-        <v-progress-circular v-if="canLoadMore" color="primary" indeterminate />
-    </mid-row>
+        <v-col cols="auto">
+            <v-progress-circular
+                v-if="canLoadMore"
+                color="primary"
+                indeterminate
+                ref="list"
+            />
+        </v-col>
+    </v-row>
 </template>
 
 <script lang="ts" setup>
@@ -51,30 +56,32 @@ const filteredData = computed(() =>
         )
 );
 
-const ELEMENTS_STEP = 12;
+const ELEMENTS_STEP = 5;
 const elementsVisible = ref(ELEMENTS_STEP);
 const elementsToDisplay = computed(() =>
     filteredData.value.slice(0, elementsVisible.value)
 );
+const updateElementsVisible = () =>
+    setTimeout(() => {
+        if (!import.meta.client) return;
+        elementsVisible.value = Math.min(
+            elementsVisible.value + ELEMENTS_STEP,
+            filteredData.value.length
+        );
+    });
+
 const canLoadMore = computed(
     () => elementsVisible.value < filteredData.value.length
 );
 
-const list = ref<HtmlElement | null>(null);
-const { reset } = useInfiniteScroll(
-    list,
-    () => {
-        elementsVisible.value += ELEMENTS_STEP;
-        console.log(elementsVisible.value);
-    },
-    {
-        distance: 10,
-        canLoadMore: () => canLoadMore.value,
-    }
-);
+const list = ref<HTMLElement | null>(null);
+const isElementVisible = useElementVisibility(list);
 
-watch(searchedIds, () => {
-    elementsVisible.value = ELEMENTS_STEP;
-    reset();
+watchEffect(() => {
+    if (isElementVisible.value && elementsVisible.value) {
+        updateElementsVisible();
+    }
 });
+
+watch(searchedIds, () => (elementsVisible.value = ELEMENTS_STEP));
 </script>
