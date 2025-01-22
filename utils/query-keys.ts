@@ -23,4 +23,9 @@ export const queryKeys = {
         url,
         size,
     ],
+    localValidateMinecraftSkin: (skin: unknown) => [
+        ...queryKeys.local(),
+        "validate-minecraft-skin",
+        skin,
+    ],
 } as const;

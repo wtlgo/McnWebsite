@@ -2,12 +2,25 @@
     <v-card :title="`Скин ${name}`">
         <template #text>
             <v-container fluid>
-                <mid-row v-if="skin">
-                    <skin-view
-                        :skin="skin"
-                        :height="maxHeight"
-                        :width="maxHeight"
-                    />
+                <mid-row v-if="!!skin">
+                    <div class="d-flex flex-column ga-2">
+                        <p>Превью</p>
+                        <skin-view
+                            style="
+                                border-color: white;
+                                border-width: 1px;
+                                border-style: solid;
+                            "
+                            :skin="skin"
+                            :height="maxHeight"
+                            :width="maxHeight"
+                        />
+                    </div>
+                </mid-row>
+                <mid-row v-else> Скин не установлен </mid-row>
+
+                <mid-row v-if="canUpload">
+                    <skin-uploader :name="name" />
                 </mid-row>
             </v-container>
         </template>
@@ -30,4 +43,10 @@ const maxHeight = computed(() =>
 );
 
 const skin = useApiSkin(() => name);
+const { data } = useApiProfiles();
+const canUpload = computed(() => {
+    const profile = data.value.find((v) => v.name === name);
+    if (!profile) return false;
+    return !profile.premium || !!profile.floodgate;
+});
 </script>

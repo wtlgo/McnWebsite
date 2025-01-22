@@ -8,6 +8,11 @@ export default defineNuxtConfig({
         vkApiServiceKey: process.env["VK_API_SERVICE_KEY"],
         mysqlConnectionString: process.env["DATABASE_URL"],
         mineskinKey: process.env["MINESKIN_KEY"],
+        imgurClientSecret: process.env["IMGUR_CLIENT_SECRET"],
+
+        public: {
+            imgurClientId: process.env["IMGUR_CLIENT_ID"],
+        },
     },
 
     modules: [

@@ -1,11 +1,15 @@
 <template>
-    <canvas ref="canvas" />
+    <canvas ref="canvas" v-bind="props" />
 </template>
 
 <script lang="ts" setup>
 import { SkinViewer } from "skinview3d";
 
-const props = defineProps<{ skin: string; width: number; height: number }>();
+const { skin, width, height, ...props } = defineProps<{
+    skin: string;
+    width: number;
+    height: number;
+}>();
 const canvas = ref<HTMLCanvasElement | null>(null);
 const skinViewer = ref<SkinViewer | null>(null);
 
@@ -15,7 +19,9 @@ watchEffect((onCleanup) => {
 
     skinViewer.value = new SkinViewer({
         canvas: canvas.value,
-        ...props,
+        skin,
+        width,
+        height,
     });
 });
 </script>

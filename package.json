@@ -23,6 +23,8 @@
         "bottleneck": "^2.19.5",
         "dotenv": "^16.4.7",
         "drizzle-orm": "^0.38.4",
+        "image-size": "^1.2.0",
+        "imgur": "^2.4.2",
         "inbatches": "^0.0.10",
         "jose": "^5.9.6",
         "jwt-decode": "^4.0.0",
