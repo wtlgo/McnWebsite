@@ -1,3 +1,14 @@
+import { z } from "zod";
+
+const uploadResponseSchema = z
+    .object({
+        status: z.literal(200),
+        data: z.object({
+            link: z.string(),
+        }),
+    })
+    .transform((v) => v.data.link);
+
 export const useImgurUploader = () => {
     const config = useRuntimeConfig();
 
@@ -5,13 +16,14 @@ export const useImgurUploader = () => {
         mutationFn: async (file: File) => {
             const formData = new FormData();
             formData.append("image", file);
-            return $fetch("https://api.imgur.com/3/image", {
+            const data = await $fetch("https://api.imgur.com/3/image", {
                 method: "POST",
                 headers: {
                     Authorization: `Client-ID ${config.public.imgurClientId}`,
                 },
                 body: formData,
             });
+            return uploadResponseSchema.parseAsync(data);
         },
     });
 
