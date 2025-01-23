@@ -5,11 +5,14 @@ export default defineNuxtConfig({
     compatibilityDate: "2024-11-01",
     devtools: { enabled: true },
     devServer: {
+        port: 80,
+        /*
         port: 443,
         https: {
             key: fs.readFileSync("./localhost.key").toString(),
             cert: fs.readFileSync("./localhost.crt").toString(),
         },
+        */
     },
 
     runtimeConfig: {
