@@ -44,5 +44,9 @@ export const useApiSkin = (
             toValue(enabled),
     });
 
-    return data;
+    const safeSkin = computed(
+        () => data.value?.replace("http://", "https://") ?? null
+    );
+
+    return safeSkin;
 };
