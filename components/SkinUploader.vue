@@ -25,12 +25,7 @@
             </template>
         </v-file-input>
 
-        <v-btn
-            v-if="uploadOwn"
-            color="primary"
-            :disabled="!uploadEnabled"
-            @click="onUpload"
-        >
+        <v-btn v-if="uploadOwn" color="primary" :disabled="!uploadEnabled">
             Загрузить
         </v-btn>
     </div>
