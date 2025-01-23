@@ -48,6 +48,7 @@ const fileValidation = useValidateMinecraftSkin(file);
 const uploadEnabled = computed(() => !!fileValidation.value?.isValid);
 const ruleFile = () => fileValidation.value?.errors?.at(0) ?? true;
 
+/*
 const { upload } = useImgurUploader();
 const onUpload = () => {
     if (!file.value || !fileValidation.value?.isValid) return;
@@ -56,4 +57,5 @@ const onUpload = () => {
         type: "stream",
     });
 };
+*/
 </script>
