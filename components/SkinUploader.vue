@@ -25,16 +25,14 @@
             </template>
         </v-file-input>
 
-        <v-btn v-if="uploadOwn" color="primary" :disabled="!uploadEnabled">
+        <v-btn
+            v-if="uploadOwn"
+            color="primary"
+            :disabled="!uploadEnabled"
+            @click="onUpload"
+        >
             Загрузить
         </v-btn>
-        <v-alert
-            :icon="mdiTrafficCone"
-            variant="outlined"
-            type="warning"
-            title="Under Construction"
-            text="TODO: Доделать ЭТО"
-        />
     </div>
 </template>
 
@@ -49,4 +47,13 @@ const fileValidation = useValidateMinecraftSkin(file);
 
 const uploadEnabled = computed(() => !!fileValidation.value?.isValid);
 const ruleFile = () => fileValidation.value?.errors?.at(0) ?? true;
+
+const { upload } = useImgurUploader();
+const onUpload = () => {
+    if (!file.value || !fileValidation.value?.isValid) return;
+    upload({
+        image: fileToReadableStream(file.value),
+        type: "stream",
+    });
+};
 </script>
