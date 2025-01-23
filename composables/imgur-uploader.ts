@@ -22,7 +22,7 @@ export const useImgurUploader = () => {
 
     type Payload = Parameters<typeof imgurInstance.value.upload>[0];
     const { mutate: upload, mutateAsync: uploadAsync } = useMutation({
-        mutationFn: async (payload: Payload) =>
+        mutationFn: (payload: Payload) =>
             mutex.value.runExclusive(() => imgurInstance.value.upload(payload)),
     });
 
