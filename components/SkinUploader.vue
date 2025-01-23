@@ -25,7 +25,12 @@
             </template>
         </v-file-input>
 
-        <v-btn v-if="uploadOwn" color="primary" :disabled="!uploadEnabled">
+        <v-btn
+            v-if="uploadOwn"
+            color="primary"
+            :disabled="!uploadEnabled"
+            @click="onUpload"
+        >
             Загрузить
         </v-btn>
     </div>
@@ -43,14 +48,13 @@ const fileValidation = useValidateMinecraftSkin(file);
 const uploadEnabled = computed(() => !!fileValidation.value?.isValid);
 const ruleFile = () => fileValidation.value?.errors?.at(0) ?? true;
 
-/*
-const { upload } = useImgurUploader();
+const { uploadImgur } = useImgurUploader();
 const onUpload = () => {
     if (!file.value || !fileValidation.value?.isValid) return;
-    upload({
-        image: fileToReadableStream(file.value),
-        type: "stream",
+    uploadImgur(file.value, {
+        onSettled(...args) {
+            console.log(args);
+        },
     });
 };
-*/
 </script>

@@ -4,11 +4,10 @@ export const useSkinHead = (
     enabled: TValue<boolean> = true
 ) => {
     const url = useApiSkin(name, enabled);
-    const safeUrl = computed(() => url.value?.replace("http://", "https://"));
 
     const { data } = useQuery({
-        queryKey: queryKeys.localSkinHead(safeUrl, size),
-        queryFn: () => extractFaceFromSkin(safeUrl.value, toValue(size)),
+        queryKey: queryKeys.localSkinHead(url, size),
+        queryFn: () => extractFaceFromSkin(url.value, toValue(size)),
         enabled: () => import.meta.client,
     });
 

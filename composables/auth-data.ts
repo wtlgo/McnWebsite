@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 const falseVal = { valid: false } as const;
 
-export const useAuthData = () => {
+export const useAuthData = createGlobalState(() => {
     const token = useToken();
     const auth = computed(() => {
         if (token.value === null) return falseVal;
@@ -20,4 +20,4 @@ export const useAuthData = () => {
         } as const;
     });
     return { auth, token };
-};
+});

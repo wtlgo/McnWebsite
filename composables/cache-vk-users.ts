@@ -4,7 +4,7 @@ import type { userResponseSchema } from "~/shared/vk/types";
 type TUser = z.infer<typeof userResponseSchema>[0];
 const cacheKey = "vk-api-user-get-cache";
 
-export const useCacheVkUsers = () => {
+export const useCacheVkUsers = createGlobalState(() => {
     const cache = useSessionStorage<TUser[]>(cacheKey, []);
 
     const readonlyCache = readonly(cache);
@@ -18,4 +18,4 @@ export const useCacheVkUsers = () => {
         find,
         add,
     };
-};
+});
