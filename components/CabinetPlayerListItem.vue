@@ -8,7 +8,7 @@
             ref="target"
         >
             <template #append>
-                <skin-button :name="item.name">
+                <skin-button :name="item.name" :uuid="item.uuid">
                     <template #activator="{ props }">
                         <v-btn
                             v-bind="props"

@@ -5,8 +5,9 @@ const listCache = new SimpleCache(
     async () =>
         (await getVkUsers())
             .map(
-                ({ name, vkId, floodgate }): PlayerListData => ({
+                ({ name, vkId, floodgate, uuid }): PlayerListData => ({
                     name,
+                    uuid,
                     vk: vkId,
                     bedrock: !!floodgate,
                 })
