@@ -56,7 +56,7 @@ const filteredData = computed(() =>
         )
 );
 
-const ELEMENTS_STEP = 5;
+const ELEMENTS_STEP = 20;
 const elementsVisible = ref(ELEMENTS_STEP);
 const elementsToDisplay = computed(() =>
     filteredData.value.slice(0, elementsVisible.value)
