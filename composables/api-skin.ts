@@ -13,8 +13,8 @@ export const useApiSkin = (
             auth.value.valid &&
             auth.value.isMember &&
             toValue(enabled),
-        gcTime: 60 * 60,
-        staleTime: 60 * 60,
+        gcTime: 1000 * 60 * 60 * 24,
+        staleTime: 1000 * 60 * 60,
     });
 
     const safeSkin = computed(
