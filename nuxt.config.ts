@@ -4,16 +4,19 @@ import fs from "node:fs";
 export default defineNuxtConfig({
     compatibilityDate: "2024-11-01",
     devtools: { enabled: true },
-    devServer: {
-        port: 80,
-        /*
-        port: 443,
-        https: {
-            key: fs.readFileSync("./localhost.key").toString(),
-            cert: fs.readFileSync("./localhost.crt").toString(),
-        },
-        // */
-    },
+    devServer: (() => {
+        try {
+            return {
+                port: 443,
+                https: {
+                    key: fs.readFileSync("./localhost.key").toString(),
+                    cert: fs.readFileSync("./localhost.crt").toString(),
+                },
+            };
+        } catch (_) {
+            return { port: 80 };
+        }
+    })(),
 
     runtimeConfig: {
         vkApiServiceKey: process.env["VK_API_SERVICE_KEY"],
