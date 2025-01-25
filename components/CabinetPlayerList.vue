@@ -62,17 +62,13 @@ const elementsToDisplay = computed(() =>
     filteredData.value.slice(0, elementsVisible.value)
 );
 
-const lastTimeout = shallowRef<NodeJS.Timeout | null>(null);
-const updateElementsVisible = () => {
-    if (lastTimeout.value) clearTimeout(lastTimeout.value);
-    lastTimeout.value = setTimeout(() => {
-        if (!import.meta.client) return;
-        elementsVisible.value = Math.min(
-            elementsVisible.value + ELEMENTS_STEP,
-            filteredData.value.length
-        );
-    }, 200);
-};
+const updateElementsVisible = useThrottleFn(() => {
+    if (!import.meta.client) return;
+    elementsVisible.value = Math.min(
+        elementsVisible.value + ELEMENTS_STEP,
+        filteredData.value.length
+    );
+}, 1000);
 
 const canLoadMore = computed(
     () => elementsVisible.value < filteredData.value.length
