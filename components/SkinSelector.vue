@@ -7,16 +7,19 @@
 
     <skin-selector-file
         v-if="mode === 0"
+        :disabled="disabled"
         v-model="url"
         v-model:checks="checks"
     />
     <skin-selector-url
         v-if="mode === 1"
+        :disabled="disabled"
         v-model="url"
         v-model:checks="checks"
     />
     <skin-selector-username
         v-if="mode === 2"
+        :disabled="disabled"
         v-model="url"
         v-model:checks="checks"
     />
@@ -26,6 +29,8 @@
 
 <script lang="ts" setup>
 import { ChecklistStatus, type ChecklistValue } from "~/shared/types/checklist";
+
+const { disabled } = defineProps<{ disabled: boolean }>();
 
 const checks = ref<ChecklistValue[]>([]);
 const url = ref<string | null>(null);

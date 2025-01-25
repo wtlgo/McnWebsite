@@ -69,7 +69,7 @@
 
         <template #actions>
             <update-password-button :profile="profile" />
-            <skin-button :name="profile.name" editable />
+            <skin-button :name="profile.name" :uuid="profile.uuid" editable />
         </template>
     </v-card>
 </template>

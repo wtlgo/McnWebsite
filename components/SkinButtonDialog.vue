@@ -13,7 +13,17 @@
                 </mid-row>
 
                 <mid-row v-if="canUpload">
-                    <skin-uploader :name="name" @new-skin="onNewSkin" />
+                    <skin-uploader
+                        v-if="uuid"
+                        :name="name"
+                        @new-skin="onNewSkin"
+                        :key="skin ?? '-'"
+                    />
+                    <div v-else>
+                        <v-divider class="py-2" />
+                        Ты должен зайти на сервер под этим ником хотя бы раз,
+                        чтобы иметь возможность сменить скин
+                    </div>
                 </mid-row>
             </v-container>
         </template>
@@ -25,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-const { name } = defineProps<{ name: string }>();
+const { name } = defineProps<{ name: string; uuid?: string | null }>();
 const emit = defineEmits<{ (e: "close"): void }>();
 
 const onClose = () => emit("close");

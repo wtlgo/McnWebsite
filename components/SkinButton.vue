@@ -9,7 +9,11 @@
         </template>
 
         <template #default="{ isActive }">
-            <skin-button-dialog :name="name" @close="isActive.value = false" />
+            <skin-button-dialog
+                :uuid="uuid"
+                :name="name"
+                @close="isActive.value = false"
+            />
         </template>
     </v-dialog>
 </template>
@@ -17,8 +21,9 @@
 <script lang="ts" setup>
 import { mdiHumanHandsdown } from "@mdi/js";
 
-const { name, editable } = defineProps<{
+const { name, uuid, editable } = defineProps<{
     name: string;
+    uuid?: string | null;
     editable?: boolean;
 }>();
 </script>

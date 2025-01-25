@@ -1,5 +1,10 @@
 <template>
-    <v-file-input v-model="file" label="Файл скина" accept="image/png">
+    <v-file-input
+        :disabled="disabled"
+        v-model="file"
+        label="Файл скина"
+        accept="image/png"
+    >
         <template #selection="{ fileNames }">
             <p
                 class="text-truncate"
@@ -15,6 +20,8 @@
 <script lang="ts" setup>
 import { ChecklistStatus, type ChecklistValue } from "~/shared/types/checklist";
 import sizeOf from "image-size";
+
+const { disabled } = defineProps<{ disabled: boolean }>();
 
 const file = ref<File | null>(null);
 const fileBytes = useFileData(file);

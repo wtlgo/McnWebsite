@@ -1,8 +1,15 @@
 <template>
-    <v-text-field v-model="url" label="Ссылка" :prepend-icon="mdiLink" />
+    <v-text-field
+        :disabled="disabled"
+        v-model="url"
+        label="Ссылка"
+        :prepend-icon="mdiLink"
+    />
 </template>
 
 <script lang="ts" setup>
+const { disabled } = defineProps<{ disabled: boolean }>();
+
 import { ChecklistStatus, type ChecklistValue } from "~/shared/types/checklist";
 import { mdiLink } from "@mdi/js";
 import isUrl from "is-url-superb";

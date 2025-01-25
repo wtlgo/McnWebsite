@@ -1,8 +1,15 @@
 <template>
-    <v-text-field label="Ник" v-model="username" :prepend-icon="mdiAccount" />
+    <v-text-field
+        :disabled="disabled"
+        label="Ник"
+        v-model="username"
+        :prepend-icon="mdiAccount"
+    />
 </template>
 
 <script lang="ts" setup>
+const { disabled } = defineProps<{ disabled: boolean }>();
+
 import { ChecklistStatus, type ChecklistValue } from "~/shared/types/checklist";
 import { mdiAccount } from "@mdi/js";
 
