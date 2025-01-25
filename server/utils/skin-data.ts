@@ -197,5 +197,6 @@ const cache = new SimpleAsyncCacheMap(60 * 60, (name: string) =>
     batcher.enqueue(name)
 );
 
-export const getSkinUrl = async (name: string) => cache.get(name);
+// TODO: Find a way to make cache work
+export const getSkinUrl = async (name: string) => batcher.enqueue(name);
 export const invalidateSkinUrl = async (name: string) => cache.invalidate(name);
