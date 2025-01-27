@@ -62,7 +62,7 @@ const elementsToDisplay = computed(() =>
     filteredData.value.slice(0, elementsVisible.value)
 );
 
-const updateElementsVisible = useThrottleFn(() => {
+const updateElementsVisible = useDebounceFn(() => {
     if (!import.meta.client) return;
     elementsVisible.value = Math.min(
         elementsVisible.value + ELEMENTS_STEP,

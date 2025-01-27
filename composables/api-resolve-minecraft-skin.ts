@@ -1,3 +1,7 @@
+import { Mutex } from "async-mutex";
+
+const mutex = new Mutex();
+
 export const useApiResolveMinecraftSkin = (
     name: TValue<string>,
     enabled: TValue<boolean> = true
@@ -7,11 +11,16 @@ export const useApiResolveMinecraftSkin = (
     const { data, suspense, isLoading } = useQuery({
         queryKey: queryKeys.apiResolveMinecraftSkin(name),
         queryFn: async ({ signal }) =>
-            $fetch("/api/resolve-minecraft-skin", {
-                params: { name: toValue(name) },
-                signal,
-                headers: { ...toBearerHeader(token) },
-            }).then((v) => v ?? null),
+            mutex
+                .runExclusive(() =>
+                    $fetch("/api/resolve-minecraft-skin", {
+                        params: { name: toValue(name) },
+                        signal,
+                        headers: { ...toBearerHeader(token) },
+                    })
+                )
+                .then((v) => v ?? null),
+
         enabled: () =>
             !!token.value &&
             auth.value.valid &&
