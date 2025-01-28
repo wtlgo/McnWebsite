@@ -23,10 +23,6 @@ export const useApiPopularityVoteMyVote = (
                 headers: { ...toBearerHeader(token) },
             });
         },
-
-        onSettled() {
-            refetch();
-        },
     });
 
     const safe = computed(() => data.value ?? 0);
