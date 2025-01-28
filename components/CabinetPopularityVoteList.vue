@@ -57,6 +57,7 @@ const filteredData = useDisjunctiveFilter(
         ({ id }) => searchedIds.value.includes(id),
         ({ usernames }) =>
             usernames.some((u) => u.toLowerCase().startsWith(search.value)),
+        ({ id }) => `${id}`.startsWith(search.value),
     ]
 );
 
