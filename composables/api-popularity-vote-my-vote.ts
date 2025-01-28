@@ -23,10 +23,6 @@ export const useApiPopularityVoteMyVote = (
                 headers: { ...toBearerHeader(token) },
             });
         },
-
-        onSettled() {
-            refetch();
-        },
     });
 
     const safe = computed(() => data.value ?? 0);
@@ -39,13 +35,11 @@ export const useApiPopularityVoteMyVote = (
     });
 
     watch(proxy, () => {
-        if (proxy.value != safe.value) {
-            queryClient.setQueryData(
-                queryKeys.apiPopularityVoteMyVote(fromId, to),
-                proxy.value
-            );
-            cast(proxy.value);
-        }
+        queryClient.setQueryData(
+            queryKeys.apiPopularityVoteMyVote(fromId, to),
+            proxy.value
+        );
+        cast(proxy.value);
     });
 
     return proxy;
