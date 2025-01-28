@@ -9,20 +9,10 @@
             <v-card
                 :title="fullName"
                 :prepend-avatar="vkData?.photo_400 ?? vkNoPhoto"
-                :subtitle="`Рейтинг: ${item.score}%`"
+                :subtitle="`Рейтинг: ${correctedRating}%`"
             >
                 <template #append>
-                    <v-btn
-                        :icon="mdiThumbUpOutline"
-                        variant="text"
-                        color="success"
-                    />
-
-                    <v-btn
-                        :icon="mdiThumbDownOutline"
-                        variant="text"
-                        color="error"
-                    />
+                    <lazy-vote-buttons :id="item.id" />
                 </template>
 
                 <template #text>
@@ -51,7 +41,6 @@
 <script lang="ts" setup>
 import type { PopularityVoteData } from "~/shared/types/popularity-vote-data";
 import vkNoPhoto from "~/assets/vk-no-photo.jpg";
-import { mdiThumbDownOutline, mdiThumbUp, mdiThumbUpOutline } from "@mdi/js";
 import { siVk } from "simple-icons";
 
 const { item } = defineProps<{ item: PopularityVoteData }>();
@@ -63,4 +52,6 @@ const fullName = computed(() =>
         : "..."
 );
 const url = computed(() => `https://vk.com/id${item.id}`);
+
+const correctedRating = computed(() => Math.round(item.score * 100));
 </script>

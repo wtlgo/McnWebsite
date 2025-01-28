@@ -14,6 +14,17 @@ export const queryKeys = {
         name,
     ],
     apiPopularityVote: () => [...queryKeys.apiBase(), "popularity-vote"],
+    apiPopularityVoteMyVote: (from: unknown, to: unknown) => [
+        ...queryKeys.apiBase(),
+        "popularity-vote-my-vote",
+        from,
+        to,
+    ],
+    apiPopularityVoteForMe: (from: unknown) => [
+        ...queryKeys.apiBase(),
+        "popularity-vote-for-me",
+        from,
+    ],
 
     apiVk: () => ["api", "vk"],
     apiVkUserGet: (id: unknown) => [...queryKeys.apiVk(), "user", "get", id],

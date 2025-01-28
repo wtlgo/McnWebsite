@@ -2,16 +2,21 @@
     <v-row>
         <v-col> <search-bar v-model="search" /> </v-col>
         <v-col cols="auto">
-            <v-checkbox label="Голосовал за меня" />
+            <v-checkbox
+                v-model="filterVoted"
+                label="Голосовал за меня"
+                :disabled="checkDisabled"
+            />
         </v-col>
         <v-col cols="auto">
             <v-btn :icon="mdiTooltipQuestion" variant="text" />
         </v-col>
     </v-row>
 
-    <v-row>
+    <v-row v-if="filteredData.length">
         <v-col cols="1"> Место </v-col>
     </v-row>
+    <mid-row v-else> Не найдено </mid-row>
 
     <cabinet-popularity-vote-list-item
         v-for="item in displayValues"
@@ -35,10 +40,19 @@ import type { PopularityVoteData } from "~/shared/types/popularity-vote-data";
 
 const { items } = defineProps<{ items: PopularityVoteData[] }>();
 
+const votedForMe = useApiPopularityVoteForMe();
+const checkDisabled = computed(() => typeof votedForMe.value === "undefined");
+const filterVoted = ref(false);
+
 const search = ref("");
 const searchedIds = useSearchVkIds(search);
 const filteredData = useDisjunctiveFilter(
-    () => items,
+    () =>
+        items.filter(({ id }) =>
+            votedForMe.value && filterVoted.value
+                ? votedForMe.value.includes(id)
+                : true
+        ),
     () => [
         ({ id }) => searchedIds.value.includes(id),
         ({ usernames }) =>
