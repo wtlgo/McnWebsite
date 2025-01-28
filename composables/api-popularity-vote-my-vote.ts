@@ -29,18 +29,24 @@ export const useApiPopularityVoteMyVote = (
         },
     });
 
-    const proxyData = computed({
-        get() {
-            return data.value ?? 0;
-        },
-        set(vote) {
-            queryClient.setQueryData(
-                queryKeys.apiPopularityVoteMyVote(fromId, to),
-                vote
-            );
-            cast(vote);
-        },
+    const safe = computed(() => data.value ?? 0);
+
+    const proxy = ref(0);
+    watch(safe, () => {
+        if (proxy.value != safe.value) {
+            proxy.value = safe.value;
+        }
     });
 
-    return proxyData;
+    watch(proxy, () => {
+        if (proxy.value != safe.value) {
+            queryClient.setQueryData(
+                queryKeys.apiPopularityVoteMyVote(fromId, to),
+                proxy.value
+            );
+            cast(proxy.value);
+        }
+    });
+
+    return proxy;
 };

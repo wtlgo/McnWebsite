@@ -30,7 +30,14 @@ export const useLoadingAnchor = <T>(
         }
     });
 
-    watch(array, () => (elementsVisible.value = ELEMENTS_STEP));
+    watch(
+        () => toValue(array).length,
+        () =>
+            (elementsVisible.value = Math.min(
+                elementsVisible.value,
+                toValue(array).length
+            ))
+    );
 
     return { displayValues, canLoadMore };
 };
