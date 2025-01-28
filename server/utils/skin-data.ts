@@ -1,8 +1,6 @@
 import { inArray } from "drizzle-orm";
-//import { Batcher } from "inbatches";
 import { z } from "zod";
-import { AsyncBatchProcessor } from "~/shared/utils/async-batch-processor";
-import { SimpleAsyncCacheMap } from "~/shared/utils/simple-async-cahce-map";
+import { toAsyncBatcher } from "~/shared/utils/async-batch-processor";
 
 const skinDataSchema = z.object({
     textures: z.object({
@@ -183,17 +181,21 @@ const getSkinUrlComplex = async (names: string[]) => {
     return names.map((name) => (totalResult[name] ?? null) as string | null);
 };
 
-class SkinBatcher extends AsyncBatchProcessor<string, string | null> {
-    public constructor() {
-        super();
-    }
+const batcher = toAsyncBatcher(getSkinUrlComplex);
+const convertName = (name: string) =>
+    name.includes("*") ? `${name.replaceAll("*", "")}.bedrock` : `${name}.java`;
+const functionName = "get-skin-url" as const;
 
-    async run(names: string[]) {
-        return getSkinUrlComplex(names);
+export const getSkinUrl = defineCachedFunction(
+    async (name: string) => batcher.enqueue(name),
+    {
+        maxAge: 60 * 60 * 24,
+        name: functionName,
+        getKey: convertName,
     }
-}
-const batcher = new SkinBatcher();
+);
 
-// TODO: Find a way to make cache work
-export const getSkinUrl = async (name: string) => batcher.enqueue(name);
-export const invalidateSkinUrl = async (name: string) => {};
+export const invalidateSkinUrl = async (name: string) =>
+    useStorage("cache").removeItem(
+        `nitro:functions:${functionName}:${convertName(name)}.json`
+    );

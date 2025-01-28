@@ -13,6 +13,7 @@ export const queryKeys = {
         "resolve-minecraft-skin",
         name,
     ],
+    apiPopularityVote: () => [...queryKeys.apiBase(), "popularity-vote"],
 
     apiVk: () => ["api", "vk"],
     apiVkUserGet: (id: unknown) => [...queryKeys.apiVk(), "user", "get", id],

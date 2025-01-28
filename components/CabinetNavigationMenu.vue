@@ -27,7 +27,14 @@
 
 <script lang="ts" setup>
 import type { RouteLocationRaw } from "vue-router";
-import { mdiListBox, mdiAccount, mdiMap, mdiVote, mdiLink } from "@mdi/js";
+import {
+    mdiListBox,
+    mdiAccount,
+    mdiMap,
+    mdiVote,
+    mdiLink,
+    mdiBallot,
+} from "@mdi/js";
 import { siVk } from "simple-icons";
 
 interface ItemT {
@@ -47,6 +54,11 @@ const items: ItemT[] = [
         title: "Список игроков",
         route: "/cabinet/player-list",
         icon: mdiListBox,
+    },
+    {
+        title: "Рейтинг",
+        route: "/cabinet/popularity-vote",
+        icon: mdiBallot,
     },
 ];
 

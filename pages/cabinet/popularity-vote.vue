@@ -1,19 +1,17 @@
 <template>
     <query-data-container :query="query">
         <template #default="{ data }">
-            <cabinet-profiles :profiles="data" />
+            <cabinet-popularity-vote-list :items="data" />
         </template>
     </query-data-container>
 </template>
 
 <script lang="ts" setup>
-import { mdiReload } from "@mdi/js";
-
 definePageMeta({
     layout: "cabinet",
 });
 
-useHead({ title: "Мои профили" });
+useHead({ title: "Рейтинг игроков" });
 
-const query = useApiProfiles();
+const query = useApiPopularityVote();
 </script>

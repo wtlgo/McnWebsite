@@ -39,6 +39,33 @@ const step3 = z
     })
     .transform((d) => d.textures["SKIN"]?.url);
 
+const getMinecraftSkin = cachedFunction(
+    async (username?: string | null) => {
+        if (!username) return null;
+
+        try {
+            const id = await $fetch(
+                `https://api.mojang.com/users/profiles/minecraft/${username}`
+            ).then(step1.parseAsync);
+
+            const texture = await $fetch(
+                `https://sessionserver.mojang.com/session/minecraft/profile/${id}`
+            ).then(step2.parseAsync);
+
+            const url = await step3.parseAsync(texture);
+
+            return url?.replace("http://", "https://") ?? null;
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    },
+    {
+        name: "get-minecraft-skin",
+        maxAge: 24 * 60 * 60,
+    }
+);
+
 export default defineEventHandler(async (event) => {
     const { isMember } = await validateJWT(getAccessToken(event));
     if (!isMember) {
@@ -47,23 +74,5 @@ export default defineEventHandler(async (event) => {
 
     let { name: username } = getZodQuery(event, querySchema);
 
-    username = username?.trim();
-    if (!username) return null;
-
-    try {
-        const id = await $fetch(
-            `https://api.mojang.com/users/profiles/minecraft/${username}`
-        ).then(step1.parseAsync);
-
-        const texture = await $fetch(
-            `https://sessionserver.mojang.com/session/minecraft/profile/${id}`
-        ).then(step2.parseAsync);
-
-        const url = await step3.parseAsync(texture);
-
-        return url?.replace("http://", "https://") ?? null;
-    } catch (err) {
-        console.error(err);
-        return null;
-    }
+    return getMinecraftSkin(username?.trim());
 });

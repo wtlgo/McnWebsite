@@ -1,7 +1,6 @@
 import { PlayerListData } from "~/shared/types/player-list-data";
-import { SimpleCache } from "~/shared/utils/simple-cache";
 
-const listCache = new SimpleCache(
+const getUsersCached = cachedFunction(
     async () =>
         (await getVkUsers())
             .map(
@@ -13,7 +12,7 @@ const listCache = new SimpleCache(
                 })
             )
             .reverse(),
-    60 * 60
+    { maxAge: 60 * 5, name: "get-users-cached" }
 );
 
 export default defineEventHandler(async (event) => {
@@ -22,5 +21,5 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 403, message: "Нет доступа" });
     }
 
-    return listCache.get();
+    return getUsersCached().then((v) => v ?? []);
 });

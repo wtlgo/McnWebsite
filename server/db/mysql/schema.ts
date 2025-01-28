@@ -1,7 +1,5 @@
 import {
     mysqlTable,
-    mysqlSchema,
-    AnyMySqlColumn,
     unique,
     varchar,
     double,
@@ -15,7 +13,6 @@ import {
     bigint,
     tinyint,
     mediumint,
-    foreignKey,
 } from "drizzle-orm/mysql-core";
 
 export const authme = mysqlTable(
@@ -158,6 +155,26 @@ export const mcnpVkVkUsers = mysqlTable("mcnp_vk_vk_users", {
     vkId: int("vk_id").notNull(),
 });
 
+export const mcnsPopularityVoteLog = mysqlTable(
+    "mcns_popularity_vote_log",
+    {
+        fromId: bigint("from_id", { mode: "number" }).notNull(),
+        toId: bigint("to_id", { mode: "number" }).notNull(),
+        vote: tinyint().default(0).notNull(),
+    },
+    (table) => [index("from_id").on(table.fromId, table.toId)]
+);
+
+export const mcnsPopularityVoteScores = mysqlTable(
+    "mcns_popularity_vote_scores",
+    {
+        vkId: bigint("vk_id", { mode: "number" }).notNull(),
+        upVotes: bigint("up_votes", { mode: "number" }).notNull(),
+        totalVotes: bigint("total_votes", { mode: "number" }).notNull(),
+        score: double().notNull(),
+    }
+);
+
 export const premium = mysqlTable(
     "premium",
     {
@@ -224,9 +241,7 @@ export const srCustomSkins = mysqlTable("sr_custom_skins", {
 
 export const srPlayers = mysqlTable("sr_players", {
     uuid: varchar({ length: 36 }).notNull(),
-    skinIdentifier: varchar("skin_identifier", { length: 2083 }).default(
-        "NULL"
-    ),
+    skinIdentifier: varchar("skin_identifier", { length: 2083 }),
     skinVariant: varchar("skin_variant", { length: 20 }),
     skinType: varchar("skin_type", { length: 20 }),
 });

@@ -1,13 +1,13 @@
 <template>
     <one-row>
-        <v-text-field label="Поиск" v-model="search" />
+        <search-bar v-model="search" />
     </one-row>
 
     <one-row> Найдено: {{ filteredData.length }} </one-row>
 
     <v-row>
         <lazy-cabinet-player-list-item
-            v-for="item in elementsToDisplay"
+            v-for="item in displayValues"
             :key="item.id"
             :item="item"
         />
@@ -25,63 +25,20 @@
 
 <script lang="ts" setup>
 import type { PlayerListData } from "~/shared/types/player-list-data";
-import { useRouteQuery } from "@vueuse/router";
-
-const search = useRouteQuery("q", "");
-const searchDebounced = refDebounced(search, 500);
 
 const { data } = defineProps<{ data: PlayerListData[] }>();
-const { cache } = useCacheVkUsers();
 
-const searchedIds = computed(() =>
-    cache.value
-        .filter((u) =>
-            `${u.first_name} ${u.last_name}`
-                .toLowerCase()
-                .includes(searchDebounced.value.trim().toLowerCase())
-        )
-        .map((u) => u.id)
-);
-
-const filteredData = computed(() =>
-    data
-        .map((d, id) => ({ ...d, id }))
-        .filter(
-            (d) =>
-                d.vk.toString().startsWith(searchDebounced.value.trim()) ||
-                searchedIds.value.includes(d.vk) ||
-                d.name
-                    .toLowerCase()
-                    .includes(searchDebounced.value.trim().toLowerCase())
-        )
-);
-
-const ELEMENTS_STEP = 20;
-const elementsVisible = ref(ELEMENTS_STEP);
-const elementsToDisplay = computed(() =>
-    filteredData.value.slice(0, elementsVisible.value)
-);
-
-const updateElementsVisible = useDebounceFn(() => {
-    if (!import.meta.client) return;
-    elementsVisible.value = Math.min(
-        elementsVisible.value + ELEMENTS_STEP,
-        filteredData.value.length
-    );
-}, 1000);
-
-const canLoadMore = computed(
-    () => elementsVisible.value < filteredData.value.length
+const search = ref("");
+const searchedIds = useSearchVkIds(search);
+const filteredData = useDisjunctiveFilter(
+    () => data.map((d, id) => ({ ...d, id })),
+    () => [
+        ({ vk }) => vk.toString().startsWith(search.value),
+        ({ vk }) => searchedIds.value.includes(vk),
+        ({ name }) => name.toLowerCase().includes(search.value),
+    ]
 );
 
 const list = ref<HTMLElement | null>(null);
-const isElementVisible = useElementVisibility(list);
-
-watchEffect(() => {
-    if (isElementVisible.value && elementsVisible.value) {
-        updateElementsVisible();
-    }
-});
-
-watch(searchedIds, () => (elementsVisible.value = ELEMENTS_STEP));
+const { displayValues, canLoadMore } = useLoadingAnchor(list, filteredData);
 </script>

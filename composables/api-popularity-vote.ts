@@ -1,9 +1,10 @@
-export const useApiPlayerList = () => {
+export const useApiPopularityVote = () => {
     const { token, auth } = useAuthData();
+
     const query = useQuery({
-        queryKey: queryKeys.apiPlayerList(),
+        queryKey: queryKeys.apiPopularityVote(),
         queryFn: async ({ signal }) =>
-            $fetch("/api/player-list", {
+            $fetch("/api/popularity-vote", {
                 signal,
                 headers: {
                     ...toBearerHeader(token),
@@ -14,10 +15,8 @@ export const useApiPlayerList = () => {
 
     onServerPrefetch(query.suspense);
 
-    const safeData = computed(() => query.data.value ?? []);
-
     const userIds = computed(() => [
-        ...new Set(query.data.value?.map((u) => u.vk) ?? []),
+        ...new Set(query.data.value?.map((u) => u.id) ?? []),
     ]);
     usePreloadVkUsers(userIds);
 

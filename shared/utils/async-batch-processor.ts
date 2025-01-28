@@ -89,3 +89,19 @@ export abstract class AsyncBatchProcessor<TInput, TOutput> {
 
     abstract run(items: TInput[]): Promise<TOutput[]>;
 }
+
+export const toAsyncBatcher = <InputT, OutputT>(
+    runner: (_: InputT[]) => Promise<OutputT[]>
+) => {
+    class Batcher extends AsyncBatchProcessor<InputT, OutputT> {
+        constructor() {
+            super();
+        }
+
+        async run(values: InputT[]) {
+            return runner(values);
+        }
+    }
+
+    return new Batcher();
+};

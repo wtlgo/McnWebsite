@@ -1,6 +1,6 @@
 export const useApiProfiles = () => {
     const { token, auth } = useAuthData();
-    const { data, ...other } = useQuery({
+    const query = useQuery({
         queryKey: queryKeys.apiProfiles(),
         queryFn: async ({ signal }) =>
             $fetch("/api/profiles", {
@@ -12,9 +12,7 @@ export const useApiProfiles = () => {
         enabled: () => !!token.value && auth.value.valid && auth.value.isMember,
     });
 
-    onServerPrefetch(other.suspense);
+    onServerPrefetch(query.suspense);
 
-    const safeData = computed(() => data.value ?? []);
-
-    return { data: safeData, ...other };
+    return query;
 };
