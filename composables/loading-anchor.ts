@@ -34,7 +34,7 @@ export const useLoadingAnchor = <T>(
         () => toValue(array).length,
         () =>
             (elementsVisible.value = Math.min(
-                elementsVisible.value,
+                Math.max(elementsVisible.value, ELEMENTS_STEP),
                 toValue(array).length
             ))
     );
