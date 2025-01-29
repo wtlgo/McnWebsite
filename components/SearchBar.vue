@@ -1,14 +1,17 @@
 <template>
     <v-text-field
         label="Поиск"
+        :prepend-inner-icon="mdiMagnify"
         v-model="search"
         clearable
-        @click:clear="search = ''"
+        @click:clear="clear"
     />
 </template>
 
 <script lang="ts" setup>
-const { search, clean } = useSearchQuery("q");
+import { mdiMagnify } from "@mdi/js";
+
+const { search, clean, clear } = useSearchQuery("q");
 
 const model = defineModel<string>();
 watchEffect(() => (model.value = clean.value));

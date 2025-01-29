@@ -1,6 +1,8 @@
 <template>
     <v-row>
-        <v-col lg="auto" cols="12"> <search-bar v-model="search" /> </v-col>
+        <v-col md="auto" cols="12" class="flex-grow-1">
+            <search-bar v-model="search" />
+        </v-col>
         <v-col cols="auto">
             <v-checkbox
                 v-model="filterVoted"
