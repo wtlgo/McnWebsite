@@ -6,7 +6,7 @@
 </style>
 
 <template>
-    <v-card v-if="!auth.valid" title="Вход в систему">
+    <v-card v-if="!user" title="Вход в систему">
         <template #text>
             <v-container fluid>
                 <mid-row>
@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import { OneTap, Scheme } from "@vkid/sdk";
 
-const { auth } = useAuthData();
+const user = useUser();
 
 const el = ref<HTMLDivElement | null>(null);
 watchEffect((onCleanup) => {

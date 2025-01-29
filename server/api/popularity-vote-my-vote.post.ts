@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { canPopularityVote } from "~/shared/utils/abilities.ts";
+import { getValidUser } from "../utils/get-user";
 
 const voteSchema = z.object({
     to: z.number(),
@@ -7,10 +9,8 @@ const voteSchema = z.object({
 
 export default defineEventHandler<{ body: z.infer<typeof voteSchema> }>(
     async (event) => {
-        const { isMember, id } = await validateJWT(getAccessToken(event));
-        if (!isMember) {
-            throw createError({ statusCode: 403, message: "Нет доступа" });
-        }
+        await authorize(event, canPopularityVote);
+        const { id } = await getValidUser(event);
 
         const { to, vote } = await readValidatedZodBody(event, voteSchema);
         await voteFor(id, to, vote);

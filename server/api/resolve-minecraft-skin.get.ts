@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { canFetchMojangSkin } from "~/shared/utils/abilities.ts";
 
 const querySchema = z.object({
     name: z.string().min(1),
@@ -67,12 +68,7 @@ const getMinecraftSkin = cachedFunction(
 );
 
 export default defineEventHandler(async (event) => {
-    const { isMember } = await validateJWT(getAccessToken(event));
-    if (!isMember) {
-        throw createError({ statusCode: 403, message: "Нет доступа" });
-    }
-
+    await authorize(event, canFetchMojangSkin);
     let { name: username } = getZodQuery(event, querySchema);
-
     return getMinecraftSkin(username?.trim());
 });

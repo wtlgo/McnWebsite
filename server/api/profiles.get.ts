@@ -1,8 +1,9 @@
+import { canViewProfiles } from "~/shared/utils/abilities.ts";
+import { getValidUser } from "../utils/get-user";
+
 export default defineEventHandler(async (event) => {
-    const { isMember, id } = await validateJWT(getAccessToken(event));
-    if (!isMember) {
-        throw createError({ statusCode: 403, message: "Нет доступа" });
-    }
+    await authorize(event, canViewProfiles);
+    const { id } = await getValidUser(event);
 
     const players = await getVkUsers();
     const thisPlayer = players.filter((p) => p.vkId === id);

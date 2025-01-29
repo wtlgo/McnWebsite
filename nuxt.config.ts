@@ -33,6 +33,7 @@ export default defineNuxtConfig({
         "vuetify-nuxt-module",
         "@hebilicious/vue-query-nuxt",
         "@vueuse/nuxt",
+        "nuxt-authorization",
     ],
     vuetify: {
         vuetifyOptions: {

@@ -9,11 +9,13 @@
 </template>
 
 <script lang="ts" setup>
+import { accessCabinet } from "~/shared/utils/abilities.ts";
+
 useHead({
     titleTemplate: (title) => `${title} | Личный кабинет | Mikchan No Sekai`,
 });
 
-useMemberGuard();
+useAuthorize(accessCabinet);
 
 const drawer = ref(false);
 const { mobile } = useDisplay();

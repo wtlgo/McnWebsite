@@ -14,7 +14,7 @@
             </v-col>
         </v-row>
 
-        <mid-row v-if="auth.valid"> <auth-info /> </mid-row>
+        <mid-row v-if="user"> <auth-info /> </mid-row>
         <mid-row v-else> <vk-one-tap /> </mid-row>
 
         <mid-row>
@@ -32,5 +32,5 @@
 <script lang="ts" setup>
 import { mdiTrafficCone } from "@mdi/js";
 
-const { auth } = useAuthData();
+const user = useUser();
 </script>

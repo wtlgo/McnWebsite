@@ -56,10 +56,9 @@ const emit = defineEmits<{ (e: "close"): void }>();
 const password1 = ref("");
 const password2 = ref("");
 
-const { token } = useAuthData();
 const loading = ref(false);
 const { error, errorVisible } = useErrorPair();
-const disabled = computed(() => loading.value || !token.value);
+const disabled = computed(() => loading.value);
 
 const { changePassword } = useApiChangePassword();
 

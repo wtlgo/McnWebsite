@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const payloadSchema = z.object({
+const payloadSchema = z.object({
     id: z.number(),
     name: z.string(),
     surname: z.string(),
@@ -13,3 +13,12 @@ export const payloadSchema = z.object({
 });
 
 export type TPayload = z.infer<typeof payloadSchema>;
+
+export const parsePayload = (payload: unknown): TPayload | null => {
+    const res = payloadSchema
+        .and(z.object({ exp: z.coerce.number() }))
+        .safeParse(payload);
+    if (!res.success) return null;
+    if (new Date(res.data.exp * 1000) < new Date()) return null;
+    return res.data;
+};

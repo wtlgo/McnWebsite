@@ -23,9 +23,14 @@ class MyVoteBatcher extends AsyncBatchProcessor<number, number> {
 
 export const useMyVoteBatcher = createGlobalState(() => {
     const batcher = shallowRef(new MyVoteBatcher());
-    const { auth, token } = useAuthData();
 
-    const fromId = computed(() => (auth.value.valid ? auth.value.id : null));
+    const token = useToken();
+    watchEffect(() => {
+        batcher.value._token = token.value;
+    });
+
+    const user = useUser();
+    const fromId = computed(() => user.value?.id ?? null);
 
     watchEffect(() => {
         batcher.value._token = token.value;

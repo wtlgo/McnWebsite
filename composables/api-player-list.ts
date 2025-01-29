@@ -1,15 +1,12 @@
 export const useApiPlayerList = () => {
-    const { token, auth } = useAuthData();
+    const user = useUser();
     const query = useQuery({
         queryKey: queryKeys.apiPlayerList(),
         queryFn: async ({ signal }) =>
             $fetch("/api/player-list", {
                 signal,
-                headers: {
-                    ...toBearerHeader(token),
-                },
             }),
-        enabled: () => !!token.value && auth.value.valid && auth.value.isMember,
+        enabled: () => !!user.value?.isMember,
     });
 
     onServerPrefetch(query.suspense);

@@ -1,11 +1,9 @@
 import { PopularityVoteData } from "~/shared/types/popularity-vote-data";
+import { canPopularityVote } from "~/shared/utils/abilities.ts";
 import { stableSort } from "~/shared/utils/stable-sort";
 
 export default defineEventHandler(async (event) => {
-    const { isMember } = await validateJWT(getAccessToken(event));
-    if (!isMember) {
-        throw createError({ statusCode: 403, message: "Нет доступа" });
-    }
+    await authorize(event, canPopularityVote);
 
     const vkUsers = await getVkUsers();
     const ids = [...new Set(vkUsers.map((u) => u.vkId))].reverse();

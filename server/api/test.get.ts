@@ -1,9 +1,7 @@
+import { canTest } from "~/shared/utils/abilities.ts";
+
 export default defineEventHandler(async (event) => {
-    if (!import.meta.dev) {
-        throw createError({
-            statusCode: 403,
-        });
-    }
+    await authorize(event, canTest);
 
     const name = "MikChan"; // "VisageDvache"; //"h3lm3t";
 

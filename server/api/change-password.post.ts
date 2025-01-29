@@ -3,14 +3,14 @@ import {
     changePasswordRequestSchema,
 } from "~/shared/types/change-password-request";
 import { OkResponse } from "~/shared/types/ok-response";
+import { canChangePassword } from "~/shared/utils/abilities.ts";
+import { getValidUser } from "../utils/get-user";
 
 export default defineEventHandler<{
     body: ChangePasswordRequest;
 }>(async (event): Promise<OkResponse> => {
-    const { isMember, id } = await validateJWT(getAccessToken(event));
-    if (!isMember) {
-        throw createError({ statusCode: 403, message: "Нет доступа" });
-    }
+    await authorize(event, canChangePassword);
+    const { id } = await getValidUser(event);
 
     const { name, password1, password2 } = await readValidatedZodBody(
         event,

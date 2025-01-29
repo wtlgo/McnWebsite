@@ -1,12 +1,8 @@
 import { jwtVerify, SignJWT } from "jose";
-import { z } from "zod";
 import { alg, audience, issuer, secret } from "~/server/auth/config";
-import { payloadSchema as jwtSchema } from "~/shared/types/payload";
+import { parsePayload, TPayload } from "~/shared/types/payload";
 
-export const createJWT = async (
-    payload: z.infer<typeof jwtSchema>,
-    expiresIn: number
-) =>
+export const createJWT = async (payload: TPayload, expiresIn: number) =>
     new SignJWT(payload)
         .setProtectedHeader({ alg })
         .setIssuedAt()
@@ -15,7 +11,7 @@ export const createJWT = async (
         .setExpirationTime(new Date(Date.now() + expiresIn * 1000))
         .sign(secret);
 
-const validateJWTInner = async (token?: string | null) => {
+export const getJWTData = async (token?: string | null) => {
     if (!token) return null;
     try {
         const { payload } = await jwtVerify(token, secret, {
@@ -23,7 +19,7 @@ const validateJWTInner = async (token?: string | null) => {
             audience,
         });
 
-        return await jwtSchema.parseAsync(payload);
+        return parsePayload(payload);
     } catch (err) {
         console.error(err);
         return null;
@@ -31,7 +27,7 @@ const validateJWTInner = async (token?: string | null) => {
 };
 
 export const validateJWT = async (token?: string | null) => {
-    const res = await validateJWTInner(token);
+    const res = await getJWTData(token);
     if (res === null) {
         throw createError({
             statusCode: 403,

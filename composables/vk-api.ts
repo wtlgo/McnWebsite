@@ -1,6 +1,4 @@
 export const useVkApi = createGlobalState(() => {
-    const { auth } = useAuthData();
-    return computed(
-        () => new VkApiJsonP(auth.value.valid ? auth.value.accessToken : "")
-    );
+    const user = useUser();
+    return computed(() => new VkApiJsonP(user.value?.accessToken ?? ""));
 });

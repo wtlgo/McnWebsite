@@ -1,9 +1,9 @@
 <template>
     <v-list-item
-        v-if="auth.valid"
-        :title="auth.name"
-        :subtitle="auth.gameTitle"
-        :prepend-avatar="auth.photo"
+        v-if="user"
+        :title="user.name"
+        :subtitle="user.gameTitle"
+        :prepend-avatar="user.photo"
     >
         <template #append>
             <v-btn
@@ -18,6 +18,7 @@
 
 <script lang="ts" setup>
 import { mdiLogout } from "@mdi/js";
-const { auth, token } = useAuthData();
+const user = useUser();
+const token = useToken();
 const onLogout = () => (token.value = null);
 </script>

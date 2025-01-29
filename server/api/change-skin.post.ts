@@ -1,5 +1,7 @@
 import { z } from "zod";
 import isUrl from "is-url-superb";
+import { canChangeSkin } from "~/shared/utils/abilities.ts";
+import { getValidUser } from "../utils/get-user";
 
 const changeSkinSchema = z.object({
     name: z.string(),
@@ -8,10 +10,8 @@ const changeSkinSchema = z.object({
 
 export default defineEventHandler<{ body: z.infer<typeof changeSkinSchema> }>(
     async (event) => {
-        const { isMember, id } = await validateJWT(getAccessToken(event));
-        if (!isMember) {
-            throw createError({ statusCode: 403, message: "Нет доступа" });
-        }
+        await authorize(event, canChangeSkin);
+        const { id } = await getValidUser(event);
 
         const { name, url } = await readValidatedZodBody(
             event,

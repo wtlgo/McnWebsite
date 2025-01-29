@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { canPopularityVote } from "~/shared/utils/abilities.ts";
+import { getValidUser } from "../utils/get-user";
 
 const querySchema = z.object({
     from: z.coerce.number(),
@@ -13,10 +15,8 @@ const zip = <M, N>(a: M[], b: N[]) =>
     );
 
 export default defineEventHandler(async (event) => {
-    const { isMember, id } = await validateJWT(getAccessToken(event));
-    if (!isMember) {
-        throw createError({ statusCode: 403, message: "Нет доступа" });
-    }
+    await authorize(event, canPopularityVote);
+    const { id } = await getValidUser(event);
 
     const { from, to } = getZodQuery(event, querySchema);
     if (from !== id) {

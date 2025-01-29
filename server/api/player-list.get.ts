@@ -1,4 +1,5 @@
 import { PlayerListData } from "~/shared/types/player-list-data";
+import { canViewPlayerList } from "~/shared/utils/abilities.ts";
 
 const getUsersCached = cachedFunction(
     async () =>
@@ -16,10 +17,6 @@ const getUsersCached = cachedFunction(
 );
 
 export default defineEventHandler(async (event) => {
-    const { isMember } = await validateJWT(getAccessToken(event));
-    if (!isMember) {
-        throw createError({ statusCode: 403, message: "Нет доступа" });
-    }
-
+    await authorize(event, canViewPlayerList);
     return getUsersCached().then((v) => v ?? []);
 });

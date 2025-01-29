@@ -7,9 +7,11 @@
 </template>
 
 <script lang="ts" setup>
+import { accessAdminPanel } from "~/shared/utils/abilities.ts";
+
 useHead({
     titleTemplate: (title) => `${title} | Админ-панель | Mikchan No Sekai`,
 });
 
-useAdminGuard();
+useAuthorize(accessAdminPanel);
 </script>
