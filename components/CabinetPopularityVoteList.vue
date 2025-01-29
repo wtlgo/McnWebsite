@@ -4,7 +4,7 @@
         <v-col cols="auto">
             <v-checkbox
                 v-model="filterVoted"
-                label="Голосовал за меня"
+                label="Лайкнули меня"
                 :disabled="checkDisabled"
             />
         </v-col>
