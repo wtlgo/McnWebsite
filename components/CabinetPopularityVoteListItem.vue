@@ -16,7 +16,7 @@
                 </template>
 
                 <template #text>
-                    <div class="d-flex align-center ga-2">
+                    <div class="d-flex flex-wrap align-center ga-2">
                         <v-btn
                             :icon="siVk.path"
                             :color="`#${siVk.hex}`"
