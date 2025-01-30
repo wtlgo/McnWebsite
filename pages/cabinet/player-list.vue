@@ -1,15 +1,7 @@
 <template>
     <query-data-container :query="query">
         <template #default="{ data }">
-            <client-only>
-                <cabinet-player-list :data="data" />
-
-                <template #fallback>
-                    <mid-row>
-                        <v-progress-circular color="primary" indeterminate />
-                    </mid-row>
-                </template>
-            </client-only>
+            <cabinet-popularity-vote-list :items="data" />
         </template>
     </query-data-container>
 </template>
@@ -21,5 +13,5 @@ definePageMeta({
 
 useHead({ title: "Список игроков" });
 
-const query = useApiPlayerList();
+const query = useApiPopularityVote();
 </script>

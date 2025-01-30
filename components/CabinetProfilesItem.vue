@@ -69,7 +69,13 @@
 
         <template #actions>
             <update-password-button :profile="profile" />
-            <skin-button :name="profile.name" :uuid="profile.uuid" editable />
+            <skin-button :name="profile.name" :uuid="profile.uuid" editable>
+                <template #activator="{ props }">
+                    <v-btn v-bind="props" :append-icon="mdiHumanHandsdown">
+                        Скин
+                    </v-btn>
+                </template>
+            </skin-button>
         </template>
     </v-card>
 </template>
@@ -79,7 +85,7 @@ import type { VkUserItem } from "~/shared/types/vk-user-item";
 import bedrock from "~/assets/bedrock.png";
 import java from "~/assets/java.png";
 import steve from "~/assets/steve.jpg";
-import { mdiLicense, mdiPirate } from "@mdi/js";
+import { mdiLicense, mdiPirate, mdiHumanHandsdown } from "@mdi/js";
 
 const { profile } = defineProps<{ profile: VkUserItem }>();
 

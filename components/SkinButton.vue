@@ -1,11 +1,12 @@
 <template>
-    <v-dialog max-width="500" :persistent="editable">
+    <v-dialog
+        v-model="isActive"
+        :activator="activator"
+        max-width="500"
+        :persistent="editable"
+    >
         <template #activator="{ props }">
-            <slot name="activator" :props="props">
-                <v-btn v-bind="props" :append-icon="mdiHumanHandsdown">
-                    Скин
-                </v-btn>
-            </slot>
+            <slot name="activator" :props="props" />
         </template>
 
         <template #default="{ isActive }">
@@ -19,11 +20,13 @@
 </template>
 
 <script lang="ts" setup>
-import { mdiHumanHandsdown } from "@mdi/js";
 
-const { name, uuid, editable } = defineProps<{
+const isActive = defineModel<boolean>();
+
+const { name, uuid, editable, activator } = defineProps<{
     name: string;
     uuid?: string | null;
     editable?: boolean;
+    activator?: Element | "parent";
 }>();
 </script>

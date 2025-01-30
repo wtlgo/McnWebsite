@@ -55,11 +55,6 @@ const items: ItemT[] = [
         route: "/cabinet/player-list",
         icon: mdiListBox,
     },
-    {
-        title: "Рейтинг",
-        route: "/cabinet/popularity-vote",
-        icon: mdiBallot,
-    },
 ];
 
 const additionalItems: ItemT[] = [

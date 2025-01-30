@@ -24,13 +24,11 @@
                             :href="url"
                         />
 
-                        <v-chip
+                        <username-chip
                             v-for="name in item.usernames"
                             :key="name"
-                            :color="colorHash(name)"
-                        >
-                            {{ name }}
-                        </v-chip>
+                            :name="name"
+                        />
                     </div>
                 </template>
             </v-card>
