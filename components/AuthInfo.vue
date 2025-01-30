@@ -28,7 +28,7 @@
 
                     <can :ability="accessCabinet">
                         <v-col cols="auto">
-                            <v-btn color="primary" to="/cabinet">
+                            <v-btn color="primary" to="/office">
                                 Личный Кабинет
                             </v-btn>
                         </v-col>
