@@ -35,7 +35,11 @@
 </template>
 
 <script lang="ts" setup>
-const { name } = defineProps<{ name: string; uuid?: string | null }>();
+const { name, editable } = defineProps<{
+    name: string;
+    uuid?: string | null;
+    editable?: boolean;
+}>();
 const emit = defineEmits<{ (e: "close"): void }>();
 
 const onClose = () => emit("close");
@@ -52,7 +56,8 @@ const onNewSkin = (url: string | null) => (newSkin.value = url);
 
 const { data } = useApiProfiles();
 const canUpload = computed(() => {
-    const profile = data.value.find((v) => v.name === name);
+    if (!editable) return false;
+    const profile = data.value?.find((v) => v.name === name);
     if (!profile) return false;
     return !profile.premium || !!profile.floodgate;
 });

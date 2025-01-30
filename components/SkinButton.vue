@@ -13,6 +13,7 @@
             <skin-button-dialog
                 :uuid="uuid"
                 :name="name"
+                :editable="editable"
                 @close="isActive.value = false"
             />
         </template>
@@ -20,7 +21,6 @@
 </template>
 
 <script lang="ts" setup>
-
 const isActive = defineModel<boolean>();
 
 const { name, uuid, editable, activator } = defineProps<{
