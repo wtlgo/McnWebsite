@@ -20,5 +20,8 @@
 import { mdiLogout } from "@mdi/js";
 const user = useUser();
 const token = useToken();
-const onLogout = () => (token.value = null);
+const onLogout = () => {
+    token.value = null;
+    window.location.pathname = "/";
+};
 </script>
