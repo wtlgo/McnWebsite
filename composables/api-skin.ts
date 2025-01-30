@@ -8,7 +8,8 @@ export const useApiSkin = (
     const { data } = useQuery({
         queryKey: queryKeys.apiSkin(name),
         queryFn: ({ signal }) => enqueue(toValue(name), signal),
-        enabled: () => !!user.value?.isMember && toValue(enabled),
+        enabled: () =>
+            import.meta.client && !!user.value?.isMember && toValue(enabled),
         gcTime: 1000 * 60 * 60 * 24,
         staleTime: 1000 * 60 * 60,
     });

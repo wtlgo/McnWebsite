@@ -8,7 +8,7 @@ export const useApiPopularityVoteMyVote = (
     const { data, refetch } = useQuery({
         queryKey: queryKeys.apiPopularityVoteMyVote(fromId, to),
         queryFn: ({ signal }) => enqueue(toValue(to), signal),
-        enabled: () => !!fromId.value && toValue(enabled),
+        enabled: () => import.meta.client && !!fromId.value && toValue(enabled),
         gcTime: Infinity,
         staleTime: Infinity,
     });
