@@ -20,6 +20,9 @@
     </v-row>
     <mid-row v-else> Не найдено </mid-row>
 
+    <cabinet-popularity-vote-list-item v-if="me" :item="me" />
+    <v-divider v-if="me" class="my-3" />
+
     <cabinet-popularity-vote-list-item
         v-for="item in displayValues"
         :key="item.id"
@@ -58,9 +61,14 @@ const filteredData = useDisjunctiveFilter(
     () => [
         ({ id }) => searchedIds.value.includes(id),
         ({ usernames }) =>
-            usernames.some((u) => u.toLowerCase().startsWith(search.value)),
-        ({ id }) => `${id}`.startsWith(search.value),
+            usernames.some((u) => u.toLowerCase().includes(search.value)),
+        ({ id }) => `${id}`.includes(search.value),
     ]
+);
+
+const user = useUser();
+const me = computed(() =>
+    filteredData.value.find((d) => d.id === user.value?.id)
 );
 
 const anchor = ref<HTMLElement | null>(null);
