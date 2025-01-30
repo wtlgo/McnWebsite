@@ -47,12 +47,12 @@ interface ItemT {
 const items: ItemT[] = [
     {
         title: "Мои профили",
-        route: "/cabinet/profiles",
+        route: "/office/profiles",
         icon: mdiAccount,
     },
     {
         title: "Список игроков",
-        route: "/cabinet/player-list",
+        route: "/office/player-list",
         icon: mdiListBox,
     },
 ];
