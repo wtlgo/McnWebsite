@@ -1,10 +1,11 @@
 export const useApiProfiles = () => {
     const user = useUser();
+    const requestFetch = useRequestFetch();
 
     const query = useQuery({
         queryKey: queryKeys.apiProfiles(),
         queryFn: async ({ signal }) =>
-            $fetch("/api/profiles", {
+            requestFetch("/api/profiles", {
                 signal,
             }),
         enabled: () => !!user.value?.isMember,

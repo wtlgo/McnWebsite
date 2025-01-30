@@ -7,13 +7,14 @@ export const useApiResolveMinecraftSkin = (
     enabled: TValue<boolean> = true
 ) => {
     const user = useUser();
+    const requestFetch = useRequestFetch();
 
     const { data, suspense, isLoading } = useQuery({
         queryKey: queryKeys.apiResolveMinecraftSkin(name),
         queryFn: async ({ signal }) =>
             mutex
                 .runExclusive(() =>
-                    $fetch("/api/resolve-minecraft-skin", {
+                    requestFetch("/api/resolve-minecraft-skin", {
                         params: { name: toValue(name) },
                         signal,
                     })

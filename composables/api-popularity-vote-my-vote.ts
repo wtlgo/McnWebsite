@@ -14,10 +14,11 @@ export const useApiPopularityVoteMyVote = (
     });
 
     const queryClient = useQueryClient();
+    const requestFetch = useRequestFetch();
 
     const { mutate: cast } = useMutation({
         mutationFn: async (vote: number) => {
-            return $fetch("/api/popularity-vote-my-vote", {
+            return requestFetch("/api/popularity-vote-my-vote", {
                 method: "post",
                 body: { to: toValue(to), vote },
                 headers: { ...toBearerHeader(token) },

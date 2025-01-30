@@ -1,9 +1,11 @@
 export const useApiPlayerList = () => {
+    const requestFetch = useRequestFetch();
+
     const user = useUser();
     const query = useQuery({
         queryKey: queryKeys.apiPlayerList(),
         queryFn: async ({ signal }) =>
-            $fetch("/api/player-list", {
+            requestFetch("/api/player-list", {
                 signal,
             }),
         enabled: () => !!user.value?.isMember,

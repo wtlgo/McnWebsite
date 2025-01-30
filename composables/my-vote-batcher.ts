@@ -3,6 +3,8 @@ import { AsyncBatchProcessor } from "~/shared/utils/async-batch-processor";
 class MyVoteBatcher extends AsyncBatchProcessor<number, number> {
     public _token: string | null = null;
     public _fromId: number | null = null;
+    public _fetch: typeof $fetch = $fetch;
+
     public constructor() {
         super();
     }
@@ -12,7 +14,7 @@ class MyVoteBatcher extends AsyncBatchProcessor<number, number> {
             return ids.map(() => 0);
         }
 
-        return $fetch("/api/popularity-vote-my-vote", {
+        return this._fetch("/api/popularity-vote-my-vote", {
             query: { from: this._fromId, to: ids.join(",") },
             headers: {
                 ...toBearerHeader(this._token),
@@ -24,6 +26,11 @@ class MyVoteBatcher extends AsyncBatchProcessor<number, number> {
 export const useMyVoteBatcher = createGlobalState(() => {
     const batcher = shallowRef(new MyVoteBatcher());
 
+    const requestFetch = useRequestFetch();
+    watchEffect(() => {
+        batcher.value._fetch = requestFetch;
+    });
+
     const token = useToken();
     watchEffect(() => {
         batcher.value._token = token.value;
@@ -31,9 +38,7 @@ export const useMyVoteBatcher = createGlobalState(() => {
 
     const user = useUser();
     const fromId = computed(() => user.value?.id ?? null);
-
     watchEffect(() => {
-        batcher.value._token = token.value;
         batcher.value._fromId = fromId.value;
     });
 

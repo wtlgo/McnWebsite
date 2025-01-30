@@ -1,8 +1,9 @@
 export const useApiChangeSkin = () => {
     const queryClient = useQueryClient();
+    const requestFetch = useRequestFetch();
     const { mutate: change, mutateAsync: changeAsync } = useMutation({
         mutationFn: ({ url, name }: { url: string; name: string }) =>
-            $fetch("/api/change-skin", {
+            requestFetch("/api/change-skin", {
                 method: "post",
                 body: { url, name },
             }),

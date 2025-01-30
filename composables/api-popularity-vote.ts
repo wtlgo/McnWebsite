@@ -1,10 +1,11 @@
 export const useApiPopularityVote = () => {
     const user = useUser();
+    const requestFetch = useRequestFetch();
 
     const query = useQuery({
         queryKey: queryKeys.apiPopularityVote(),
         queryFn: async ({ signal }) =>
-            $fetch("/api/popularity-vote", {
+            requestFetch("/api/popularity-vote", {
                 signal,
             }),
         enabled: () => !!user.value?.isMember,
