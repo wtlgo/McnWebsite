@@ -8,7 +8,7 @@ export const useApiChangeSkin = () => {
                 body: { url, name },
             }),
         onSuccess(_, { name, url }) {
-            queryClient.setQueryData(queryKeys.apiSkin(name), url);
+            queryClient.setQueryData(queryKeys.apiSkin(name), () => url);
         },
     });
     return { change, changeAsync };

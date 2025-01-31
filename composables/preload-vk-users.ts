@@ -21,7 +21,7 @@ export const usePreloadVkUsers = (ids: TValue<number[]>) => {
                 for (const user of users) {
                     queryClient.setQueryData(
                         queryKeys.apiVkUserGet(user.id),
-                        user
+                        () => user
                     );
                 }
             });
