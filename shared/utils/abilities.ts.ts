@@ -18,6 +18,10 @@ export const canViewProfiles = defineAbility(isMember);
 export const canFetchMojangSkin = defineAbility(isMember);
 export const canFetchLocalSkin = defineAbility(isMember);
 export const canViewScore = defineAbility(isMember);
+export const canVkAuth = defineAbility(
+    { allowGuest: true },
+    (user: User) => !user
+);
 
 export const canTest = defineAbility(
     (user: User) => isAdmin(user) && user?.id === 99806575

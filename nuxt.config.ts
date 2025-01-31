@@ -26,6 +26,7 @@ export default defineNuxtConfig({
 
         public: {
             imgurClientId: process.env["IMGUR_CLIENT_ID"],
+            vkApiClientId: process.env["VK_API_CLIENT_ID"],
         },
     },
 
@@ -34,7 +35,9 @@ export default defineNuxtConfig({
         "@hebilicious/vue-query-nuxt",
         "@vueuse/nuxt",
         "nuxt-authorization",
+        "nuxt-auth-utils",
     ],
+
     vuetify: {
         vuetifyOptions: {
             theme: {

@@ -15,7 +15,7 @@
         </v-row>
 
         <mid-row v-if="user"> <auth-info /> </mid-row>
-        <mid-row v-else> <vk-one-tap /> </mid-row>
+        <mid-row v-else> <login-button /> </mid-row>
 
         <mid-row>
             <v-alert

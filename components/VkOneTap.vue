@@ -1,37 +1,26 @@
-<style scoped>
-.one-tap-container {
-    max-width: 250px;
-    flex-grow: 1;
-}
-</style>
-
 <template>
-    <v-card v-if="!user" title="Вход в систему">
-        <template #text>
-            <v-container fluid>
-                <mid-row>
-                    <div class="one-tap-container" ref="el" />
-                </mid-row>
-            </v-container>
-        </template>
-    </v-card>
+    <div ref="el" />
+    <v-progress-circular v-if="!ready" indeterminate color="#0077FF" />
 </template>
 
 <script lang="ts" setup>
-import { OneTap, Scheme } from "@vkid/sdk";
+import { OneTap, type OneTapParams } from "@vkid/sdk";
 
-const user = useUser();
+type Params = Omit<OneTapParams, "container">;
+const props = defineProps<Params>();
 
+const ready = usePrepareVkSdk();
 const el = ref<HTMLDivElement | null>(null);
 watchEffect((onCleanup) => {
     if (!el.value) return;
+    if (!ready.value) return;
 
     const oneTap = new OneTap();
     onCleanup(() => oneTap.close());
 
     oneTap.render({
+        ...props,
         container: el.value,
-        scheme: Scheme.DARK,
     });
 });
 </script>
