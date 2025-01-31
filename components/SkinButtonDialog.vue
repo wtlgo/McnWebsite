@@ -1,5 +1,15 @@
 <template>
     <v-card :title="`Скин ${name}`">
+        <template #append>
+            <v-btn
+                :icon="mdiReload"
+                size="small"
+                variant="text"
+                :loading="refetchLoading"
+                @click="onRefetch"
+            />
+        </template>
+
         <template #text>
             <v-container fluid>
                 <mid-row>
@@ -35,6 +45,8 @@
 </template>
 
 <script lang="ts" setup>
+import { mdiReload } from "@mdi/js";
+
 const { name, editable } = defineProps<{
     name: string;
     uuid?: string | null;
@@ -49,7 +61,7 @@ const maxHeight = computed(() =>
     Math.min(250, dims.height.value / 2, dims.width.value * 0.8)
 );
 
-const skin = useApiSkin(() => name);
+const { skin, refetch } = useApiSkin(() => name);
 const newSkin = ref<string | null>(null);
 const previewSkin = computed(() => newSkin.value ?? skin.value);
 const onNewSkin = (url: string | null) => (newSkin.value = url);
@@ -61,4 +73,16 @@ const canUpload = computed(() => {
     if (!profile) return false;
     return !profile.premium || !!profile.floodgate;
 });
+7;
+
+const refetchLoading = ref(false);
+const onRefetch = () => {
+    if (refetchLoading.value) return;
+    refetchLoading.value = true;
+    refetch(undefined, {
+        onSettled() {
+            refetchLoading.value = false;
+        },
+    });
+};
 </script>

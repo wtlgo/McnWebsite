@@ -3,7 +3,7 @@ export const useSkinHead = (
     size: TValue<number> = 32,
     enabled: TValue<boolean> = true
 ) => {
-    const url = useApiSkin(name, enabled);
+    const { skin: url } = useApiSkin(name, enabled);
 
     const { data } = useQuery({
         queryKey: queryKeys.localSkinHead(url, size),

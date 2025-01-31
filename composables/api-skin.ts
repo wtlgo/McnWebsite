@@ -18,5 +18,16 @@ export const useApiSkin = (
         () => data.value?.replace("http://", "https://") ?? null
     );
 
-    return safeSkin;
+    const queryClient = useQueryClient();
+    const fetch = useRequestFetch();
+    const { mutate: refetch, mutateAsync: refetchAsync } = useMutation({
+        mutationFn: () =>
+            fetch("/api/skin", { query: { name: toValue(name), force: 1 } }),
+        onSuccess(data) {
+            const skin = data[0];
+            queryClient.setQueryData(queryKeys.apiSkin(name), skin ?? null);
+        },
+    });
+
+    return { skin: safeSkin, refetch, refetchAsync };
 };
