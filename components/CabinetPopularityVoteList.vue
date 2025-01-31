@@ -47,7 +47,7 @@ const { items } = defineProps<{ items: PopularityVoteData[] }>();
 
 const votedForMe = useApiPopularityVoteForMe();
 const checkDisabled = computed(() => typeof votedForMe.value === "undefined");
-const filterVoted = ref(false);
+const filterVoted = useBoolQuery("liked");
 
 const search = ref("");
 const searchedIds = useSearchVkIds(search);
