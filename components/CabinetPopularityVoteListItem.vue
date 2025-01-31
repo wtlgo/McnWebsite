@@ -12,7 +12,11 @@
                 :subtitle="`Рейтинг: ${correctedRating}%`"
             >
                 <template #append>
-                    <lazy-vote-buttons :id="item.id" />
+                    <lazy-vote-buttons :id="item.id">
+                        <template #prev>
+                            <reload-my-score-button :id="item.id" />
+                        </template>
+                    </lazy-vote-buttons>
                 </template>
 
                 <template #text>

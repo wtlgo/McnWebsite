@@ -1,5 +1,7 @@
 <template>
     <div class="d-flex ga-2" ref="el">
+        <slot name="prev" />
+
         <v-btn
             :icon="like ? mdiThumbUp : mdiThumbUpOutline"
             variant="text"
@@ -13,6 +15,8 @@
             color="error"
             @click="onDislike"
         />
+
+        <slot name="post" />
     </div>
 </template>
 
