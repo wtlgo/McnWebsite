@@ -25,7 +25,10 @@ export const useApiSkin = (
             fetch("/api/skin", { query: { name: toValue(name), force: 1 } }),
         onSuccess(data) {
             const skin = data[0];
-            queryClient.setQueryData(queryKeys.apiSkin(name), skin ?? null);
+            queryClient.setQueryData(
+                queryKeys.apiSkin(toValue(name)),
+                skin ?? null
+            );
         },
     });
 
