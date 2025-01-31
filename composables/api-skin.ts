@@ -27,7 +27,7 @@ export const useApiSkin = (
             const skin = data[0];
             queryClient.setQueryData(
                 queryKeys.apiSkin(toValue(name)),
-                skin ?? null
+                () => skin ?? null
             );
         },
     });
