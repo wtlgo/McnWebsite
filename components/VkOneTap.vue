@@ -1,16 +1,9 @@
-<style scoped>
-.one-tap-container {
-    max-width: 250px;
-    flex-grow: 1;
-}
-</style>
-
 <template>
     <v-card v-if="!user" title="Вход в систему">
         <template #text>
             <v-container fluid>
                 <mid-row>
-                    <div class="one-tap-container" ref="el" />
+                    <div ref="el" />
                 </mid-row>
             </v-container>
         </template>
@@ -32,6 +25,8 @@ watchEffect((onCleanup) => {
     oneTap.render({
         container: el.value,
         scheme: Scheme.DARK,
+        showAlternativeLogin: true,
+        width: 250,
     });
 });
 </script>
