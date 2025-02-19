@@ -14,37 +14,46 @@
     "dependencies": {
         "@hebilicious/vue-query-nuxt": "^0.3.0",
         "@mdi/js": "^7.4.47",
-        "@tanstack/vue-query": "^5.66.0",
+        "@tanstack/vue-query": "^5.66.4",
         "@vkid/sdk": "^1.3.0",
-        "@vueuse/core": "^12.5.0",
-        "@vueuse/nuxt": "^12.5.0",
-        "@vueuse/router": "^12.5.0",
+        "@vueuse/core": "^12.7.0",
+        "@vueuse/nuxt": "^12.7.0",
+        "@vueuse/router": "^12.7.0",
         "async-mutex": "^0.5.0",
         "bottleneck": "^2.19.5",
         "dotenv": "^16.4.7",
-        "drizzle-orm": "^0.39.1",
+        "drizzle-orm": "^0.39.3",
         "image-size": "^1.2.0",
-        "imgur": "^2.4.2",
+        "imgur": "^2.4.3",
         "inbatches": "^0.0.10",
         "is-url-superb": "^6.1.0",
-        "jose": "^5.9.6",
+        "jose": "^5.10.0",
         "jwt-decode": "^4.0.0",
         "mysql2": "^3.12.0",
         "nuxt": "^3.15.4",
         "nuxt-authorization": "0.3.3",
-        "simple-icons": "^14.4.0",
+        "simple-icons": "^14.7.0",
         "skinview3d": "^3.1.0",
         "string-hash": "^1.1.3",
         "vue": "latest",
         "vue-router": "latest",
-        "vuetify": "^3.7.9",
+        "vuetify": "^3.7.12",
         "vuetify-nuxt-module": "0.18.3",
-        "zod": "^3.24.1"
+        "zod": "^3.24.2"
     },
     "devDependencies": {
         "@types/string-hash": "^1.1.3",
         "better-sqlite3": "^11.8.1",
         "drizzle-kit": "^0.30.4"
     },
-    "packageManager": "pnpm@9.15.0"
+    "packageManager": "pnpm@10.4.1",
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "@hebilicious/vue-query-nuxt",
+            "@parcel/watcher",
+            "better-sqlite3",
+            "esbuild",
+            "vue-demi"
+        ]
+    }
 }

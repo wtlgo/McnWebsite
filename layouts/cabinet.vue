@@ -2,9 +2,10 @@
     <v-app>
         <cabinet-app-bar v-model="drawerActive" />
         <cabinet-navigation v-model="drawerActive" />
-        <v-main>
+        <v-main minHeight="100vh">
             <slot />
         </v-main>
+        <the-footer />
     </v-app>
 </template>
 

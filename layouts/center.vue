@@ -1,11 +1,14 @@
 <template>
     <v-app>
-        <div class="h-100 d-flex flex-column justify-center">
-            <div class="w-100 d-flex justify-center">
-                <div>
-                    <slot />
+        <v-main minHeight="100vh">
+            <div class="h-100 d-flex flex-column justify-center">
+                <div class="w-100 d-flex justify-center">
+                    <div>
+                        <slot />
+                    </div>
                 </div>
             </div>
-        </div>
+        </v-main>
+        <the-footer />
     </v-app>
 </template>
