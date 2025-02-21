@@ -1,9 +1,15 @@
+<style scoped>
+div.vk:deep(iframe) {
+    min-height: fit-content;
+}
+</style>
+
 <template>
     <v-card v-if="!user" title="Вход в систему">
         <template #text>
             <v-container fluid>
                 <mid-row>
-                    <div ref="el" />
+                    <div ref="el" class="vk" />
                 </mid-row>
             </v-container>
         </template>
