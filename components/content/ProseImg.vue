@@ -1,7 +1,7 @@
 <template>
     <component
         :is="VImg"
-        :src="refinedSrc"
+        :src="props.src"
         :alt="props.alt"
         :width="props.width"
         :height="props.height"
@@ -28,9 +28,5 @@ const props = defineProps({
         type: [String, Number],
         default: undefined,
     },
-});
-
-const refinedSrc = computed(() => {
-    return props.src;
 });
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <h6 :id="props.id">
+    <h6 class="pt-1 pb-2" :id="props.id">
         <a
             class="app-link text-decoration-none text-white"
             v-if="props.id"

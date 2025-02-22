@@ -28,7 +28,6 @@ const headers = computed(() => {
         .map((it) => {
             const item = headersSchema.safeParse(it);
             if (!item.success) return null;
-            if (item.data[0] === "h1") return null;
             return {
                 lvl: +item.data[0].slice(1),
                 id: item.data[1].id,
@@ -41,7 +40,7 @@ const headers = computed(() => {
     const stack: { lvl: number; item: TOCItem }[] = [];
 
     for (const node of headers) {
-        const item: TOCItem = { id: node.id, title: node.title, children: [] };
+        const item: TOCItem = { ...node, children: [] };
 
         while (stack.length && stack[stack.length - 1].lvl >= node.lvl) {
             stack.pop();
@@ -53,7 +52,7 @@ const headers = computed(() => {
             result.push(item);
         }
 
-        stack.push({ lvl: node.lvl, item });
+        stack.push({ ...node, item });
     }
 
     return result;

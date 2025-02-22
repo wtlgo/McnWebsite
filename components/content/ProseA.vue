@@ -15,7 +15,7 @@
         <slot />
         <v-icon
             v-if="isExternal"
-            class="icon text-primary ms-1"
+            class="icon text-primary"
             :icon="mdiLinkVariant"
         />
     </nuxt-link>
