@@ -1,9 +1,5 @@
 <template>
-    <v-chip
-        :color="colorHash(name)"
-        :prepend-avatar="icon"
-        @click="isActive = true"
-    >
+    <v-chip :color="color" :prepend-avatar="icon" @click="isActive = true">
         {{ name }}
     </v-chip>
 
@@ -20,4 +16,5 @@ const head = useSkinHead(() => name, 32);
 const icon = computed(
     () => head.value ?? (name.startsWith("*") ? bedrockIcon : javaIcon)
 );
+const color = useColorHash(() => name);
 </script>

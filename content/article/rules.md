@@ -1,5 +1,6 @@
 ---
 title: "О сервере и правила"
+img: "/article-img/rules.jpg"
 ---
 
 # О чем сервер
