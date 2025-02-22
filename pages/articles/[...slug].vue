@@ -10,8 +10,6 @@
                     <table-of-contents />
                 </v-card-text>
 
-                <v-divider />
-
                 <content-renderer
                     class="v-card-text"
                     :value="post"

@@ -1,9 +1,14 @@
 <template>
-    <tocl :items="headers" />
+    <v-expansion-panels variant="popout">
+        <v-expansion-panel title="Оглавление" color="primary">
+            <template #text>
+                <table-of-contents-list class="v-card-text" :items="headers" />
+            </template>
+        </v-expansion-panel>
+    </v-expansion-panels>
 </template>
 
 <script lang="ts" setup>
-import { TableOfContentsList as tocl } from "#components";
 import { z } from "zod";
 
 const article = injectArticle();
