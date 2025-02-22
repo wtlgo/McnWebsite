@@ -10,7 +10,7 @@ li:deep(div.v-list-item__content) {
 </style>
 
 <template>
-    <v-list-item tag="li">
+    <v-list-item density="compact" tag="li">
         <slot />
     </v-list-item>
 </template>

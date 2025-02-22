@@ -23,4 +23,6 @@ const slug = computed(() =>
 const { data: post } = await useAsyncData(`article-${slug}`, () =>
     queryCollection("articles").path(`/article/${slug.value}`).first()
 );
+
+provideArticle(post);
 </script>
