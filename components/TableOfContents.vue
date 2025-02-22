@@ -2,7 +2,7 @@
     <v-expansion-panels variant="popout">
         <v-expansion-panel title="Оглавление" color="primary">
             <template #text>
-                <table-of-contents-list class="v-card-text" :items="headers" />
+                <table-of-contents-list class="text-body-1" :items="headers" />
             </template>
         </v-expansion-panel>
     </v-expansion-panels>

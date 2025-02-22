@@ -30,7 +30,7 @@
                 </v-card-text>
 
                 <content-renderer
-                    class="v-card-text"
+                    class="v-card-text text-body-1"
                     :value="post"
                     :data="{ mcVersion: version }"
                 />
